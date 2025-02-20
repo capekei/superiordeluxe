@@ -6,8 +6,9 @@ module.exports = withPWA({
   reactStrictMode: true,
   experimental: {
     turbo: {
-      loaders: {
-        // Configure any specific loaders if needed
+      rules: {
+        // Configure any specific rules if needed
+        '*.mdx': ['mdx-loader']
       },
       resolveAlias: {
         // Add any module aliases if needed

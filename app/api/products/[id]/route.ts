@@ -14,7 +14,7 @@ interface Product {
 let products: Product[] = [];
 
 export async function GET(
-  request: NextRequest,
+  _req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const id = parseInt(params.id);
@@ -26,12 +26,12 @@ export async function GET(
 }
 
 export async function PUT(
-  request: NextRequest,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
     const id = parseInt(params.id);
-    const updates = await request.json();
+    const updates = await req.json();
     const index = products.findIndex(p => p.id === id);
     
     if (index === -1) {
@@ -47,7 +47,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
+  _req: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {

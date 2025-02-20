@@ -1,5 +1,4 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 interface Product {
   id: number;
@@ -21,11 +20,9 @@ export async function GET(
   const id = parseInt(params.id);
   const product = products.find(p => p.id === id);
   
-  if (!product) {
-    return NextResponse.json({ error: 'Product not found' }, { status: 404 });
-  }
-  
-  return NextResponse.json(product);
+  return product 
+    ? NextResponse.json(product) 
+    : NextResponse.json({ error: "Product not found" }, { status: 404 });
 }
 
 export async function PUT(
@@ -34,18 +31,18 @@ export async function PUT(
 ) {
   try {
     const id = parseInt(params.id);
-    const data = await request.json() as Product;
+    const updates = await request.json();
     const index = products.findIndex(p => p.id === id);
     
     if (index === -1) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
     
-    products[index] = { ...data, id };
-    return NextResponse.json(products[index]);
+    products[index] = { ...products[index], ...updates };
+    return NextResponse.json({ message: "Producto actualizado", product: products[index] });
   } catch (error) {
     console.error('Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -59,12 +56,12 @@ export async function DELETE(
     products = products.filter(p => p.id !== id);
     
     if (products.length === initialLength) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
     
-    return NextResponse.json({ message: 'Product deleted' });
+    return NextResponse.json({ message: "Producto eliminado" });
   } catch (error) {
     console.error('Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 } 

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import db from '@/lib/db';
 
 interface Product {
   id: number;
@@ -12,27 +11,48 @@ interface Product {
   imageUrl?: string;
 }
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+// In-memory storage
+let products: Product[] = [];
+
+export async function GET() {
+  return NextResponse.json(products);
+}
+
+export async function POST(request: NextRequest) {
   try {
-    const products = await new Promise<any[]>((resolve, reject) => {
-      db.all("SELECT * FROM products", (err, rows) => (err ? reject(err) : resolve(rows)));
-    });
-    return NextResponse.json(products);
+    const data = await request.json() as Product;
+    const newProduct = {
+      ...data,
+      id: Date.now()
+    };
+    products.push(newProduct);
+    return NextResponse.json(newProduct, { status: 201 });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export async function PUT(request: NextRequest) {
   try {
     const data = await request.json() as Product;
-    const { category, modelo, descripcion } = data;
-    await new Promise((resolve, reject) => {
-      db.run("INSERT INTO products (category, modelo, descripcion) VALUES (?, ?, ?)", 
-        [category, modelo, descripcion], (err) => (err ? reject(err) : resolve(null)));
-    });
-    return NextResponse.json({ message: "Producto agregado" }, { status: 201 });
+    const index = products.findIndex(p => p.id === data.id);
+    if (index === -1) {
+      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+    }
+    products[index] = data;
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { id } = await request.json() as { id: number };
+    products = products.filter(p => p.id !== id);
+    return NextResponse.json({ message: 'Product deleted' });
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

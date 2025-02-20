@@ -14,11 +14,17 @@ interface Product {
 // In-memory storage (shared with the main products route)
 let products: Product[] = [];
 
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
-  const id = parseInt(params.id);
+  const id = parseInt(context.params.id);
   const product = products.find(p => p.id === id);
   
   if (!product) {
@@ -30,10 +36,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
-    const id = parseInt(params.id);
+    const id = parseInt(context.params.id);
     const data = await request.json() as Product;
     const index = products.findIndex(p => p.id === id);
     
@@ -51,10 +57,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
-    const id = parseInt(params.id);
+    const id = parseInt(context.params.id);
     const initialLength = products.length;
     products = products.filter(p => p.id !== id);
     

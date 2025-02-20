@@ -3,62 +3,36 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '@/components/ProductCard';
 import { store } from '@/lib/store';
-
-// Datos de ejemplo para productos
-const dummyProducts = [
-  {
-    id: 1,
-    category: 'Neveras',
-    modelo: 'Nevera Inteligente Pro',
-    descripcion: 'Sistema de enfriamiento dual con IA',
-    precio: 12999.99
-  },
-  {
-    id: 2,
-    category: 'Lavadoras',
-    modelo: 'Lavadora EcoSmart',
-    descripcion: 'Tecnología de lavado eficiente',
-    precio: 8999.99
-  },
-  {
-    id: 3,
-    category: 'Estufas',
-    modelo: 'Estufa Digital Plus',
-    descripcion: 'Control táctil y cocción precisa',
-    precio: 6999.99
-  },
-  {
-    id: 4,
-    category: 'Congeladores',
-    modelo: 'Congelador MaxFrost',
-    descripcion: 'Capacidad extra grande con control de temperatura',
-    precio: 9999.99
-  },
-  {
-    id: 5,
-    category: 'Exhibidores',
-    modelo: 'Exhibidor Comercial Pro',
-    descripcion: 'Ideal para negocios, con iluminación LED',
-    precio: 15999.99
-  },
-  {
-    id: 6,
-    category: 'Heladeros',
-    modelo: 'Heladero Compact',
-    descripcion: 'Perfecto para heladerías pequeñas',
-    precio: 7999.99
-  }
-];
+import { useInventory } from '@/contexts/InventoryContext';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState(dummyProducts);
+  const { inventory } = useInventory();
   const [category, setCategory] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('Inventory:', inventory);
+    setIsLoading(false);
+  }, [inventory]);
 
   const filteredProducts = category 
-    ? products.filter((p) => p.category === category) 
-    : products;
+    ? inventory.filter((p) => p.category === category) 
+    : inventory;
+
+  console.log('Filtered Products:', filteredProducts);
 
   const categories = ['Neveras', 'Congeladores', 'Exhibidores', 'Heladeros', 'Estufas', 'Lavadoras'];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+          <p className="text-slate-600 dark:text-slate-400">Cargando productos...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="py-20">
@@ -120,15 +94,25 @@ export default function ProductsPage() {
 
             {/* Products Grid */}
             <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  modelo={product.modelo}
-                  descripcion={product.descripcion}
-                  precio={product.precio}
-                  whatsappLink={`https://wa.me/${store.whatsapp}?text=Quiero comprar ${product.modelo}`}
-                />
-              ))}
+              {filteredProducts && filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    modelo={product.modelo}
+                    descripcion={product.descripcion}
+                    precio={product.precio}
+                    stock={product.stock}
+                    whatsappLink={`https://wa.me/${store.whatsapp}?text=Quiero comprar ${product.modelo}`}
+                  />
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-12">
+                  <p className="text-slate-600 dark:text-slate-400">
+                    No hay productos disponibles en esta categoría
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

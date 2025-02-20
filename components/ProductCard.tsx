@@ -6,20 +6,20 @@ import { useInventory } from '@/contexts/InventoryContext';
 import { useState } from 'react';
 
 interface ProductCardProps {
+  id: number;
   modelo: string;
   descripcion: string;
   whatsappLink: string;
   precio: number;
+  stock?: number;
 }
 
-export default function ProductCard({ modelo, descripcion, whatsappLink, precio }: ProductCardProps) {
+export default function ProductCard({ id, modelo, descripcion, whatsappLink, precio, stock = 0 }: ProductCardProps) {
   const { addToCart } = useCart();
-  const { getStock, updateStock } = useInventory();
+  const { updateStock } = useInventory();
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
-
-  const stock = getStock(modelo);
 
   const handleAddToCart = () => {
     if (stock <= 0) {
@@ -30,8 +30,8 @@ export default function ProductCard({ modelo, descripcion, whatsappLink, precio 
       return;
     }
 
-    addToCart({ id: Date.now(), modelo, descripcion, precio, quantity: 1 });
-    updateStock(modelo, 1);
+    addToCart({ id, modelo, descripcion, precio, quantity: 1 });
+    updateStock(id, 1);
     setNotificationMessage('¡Agregado al carrito!');
     setNotificationType('success');
     setShowNotification(true);
@@ -80,7 +80,7 @@ export default function ProductCard({ modelo, descripcion, whatsappLink, precio 
             {descripcion}
           </p>
           <p className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6">
-            ${precio.toLocaleString()}
+            ${typeof precio === 'number' ? precio.toLocaleString() : '0'}
           </p>
 
           {/* Action Buttons */}

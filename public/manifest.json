@@ -1,0 +1,15 @@
+{
+  "name": "Superior Deluxe",
+  "short_name": "Superior Deluxe",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#002D62",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

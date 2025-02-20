@@ -5,7 +5,7 @@ import { useInventory } from '@/contexts/InventoryContext';
 import Image from 'next/image';
 
 export default function AdminPage() {
-  const { inventory, updateStock, addProduct, deleteProduct: removeProduct, editProduct } = useInventory();
+  const { inventory, addProduct, deleteProduct: removeProduct, editProduct } = useInventory();
   const [category, setCategory] = useState('');
   const [modelo, setModelo] = useState('');
   const [descripcion, setDescripcion] = useState('');

@@ -1,14 +1,13 @@
 declare module 'sqlite3' {
-  export class Database {
-    constructor(filename: string);
-    serialize(callback: () => void): void;
-    run(sql: string, params?: any[], callback?: (err: Error | null) => void): this;
-    get(sql: string, params?: any[], callback?: (err: Error | null, row: any) => void): this;
-    prepare(sql: string, params?: any[], callback?: (err: Error | null) => void): Statement;
+  export interface Database {
+    run(sql: string, params: unknown[], callback: (err: Error | null) => void): void;
+    run(sql: string, callback: (err: Error | null) => void): void;
+    get(sql: string, params: unknown[], callback: (err: Error | null, row: unknown) => void): void;
+    get(sql: string, callback: (err: Error | null, row: unknown) => void): void;
+    all(sql: string, params: unknown[], callback: (err: Error | null, rows: unknown[]) => void): void;
+    all(sql: string, callback: (err: Error | null, rows: unknown[]) => void): void;
+    close(callback?: (err: Error | null) => void): void;
   }
 
-  export class Statement {
-    run(...params: any[]): this;
-    finalize(): void;
-  }
+  export function verbose(): { Database: new (filename: string) => Database };
 }

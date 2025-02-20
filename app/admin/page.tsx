@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useInventory } from '@/contexts/InventoryContext';
+import Image from 'next/image';
 
 export default function AdminPage() {
   const { inventory, updateStock, addProduct, deleteProduct: removeProduct, editProduct } = useInventory();
@@ -202,9 +203,11 @@ export default function AdminPage() {
             />
             {imageUrl && (
               <div className="mt-2">
-                <img
+                <Image
                   src={imageUrl}
                   alt="Vista previa"
+                  width={128}
+                  height={128}
                   className="w-32 h-32 object-cover rounded-lg"
                 />
               </div>
@@ -258,9 +261,11 @@ export default function AdminPage() {
               <tr key={product.id} className="border-b border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                 <td className="p-4">
                   {product.imageUrl ? (
-                    <img
+                    <Image
                       src={product.imageUrl}
                       alt={product.modelo}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 object-cover rounded-lg"
                     />
                   ) : (

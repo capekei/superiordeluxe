@@ -4,6 +4,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
-    "types": ["@cloudflare/workers-types"]
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"]
   }
 }

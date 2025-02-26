@@ -1,0 +1,69 @@
+---
+import type { Product } from '../../lib/inventory';
+
+interface Props {
+  products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<div class="table-container">
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Categoría</th>
+      </tr>
+    </thead>
+    <tbody>
+      {products.map(product => (
+        <tr>
+          <td>{product.id}</td>
+          <td>{product.name}</td>
+          <td>{product.description}</td>
+          <td>{product.category}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-container {
+    overflow-x: auto;
+    border: 2px solid var(--color-text);
+    border-radius: var(--radius-md);
+    margin: var(--space-2) 0;
+  }
+
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+  }
+
+  th, td {
+    padding: var(--space-2);
+    text-align: left;
+    border-bottom: 1px solid var(--color-text-secondary);
+  }
+
+  th {
+    background: var(--color-background);
+    font-weight: 600;
+  }
+
+  tr:hover {
+    background: var(--color-background);
+  }
+
+  @media (max-width: 768px) {
+    th, td {
+      padding: var(--space-1);
+      font-size: 0.875rem;
+    }
+  }
+</style>

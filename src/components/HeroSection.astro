@@ -1,0 +1,98 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+  backgroundImage?: string;
+  overlayColor?: string;
+  textColor?: string;
+  alignment?: 'left' | 'center' | 'right';
+  height?: 'small' | 'medium' | 'large' | 'full';
+}
+
+const {
+  title,
+  subtitle = '',
+  ctaText = 'Saber más',
+  ctaLink = '#',
+  backgroundImage = '/images/hero-bg.jpg',
+  overlayColor = 'rgba(0, 0, 0, 0.5)',
+  textColor = 'white',
+  alignment = 'center',
+  height = 'medium'
+} = Astro.props;
+
+// Mapeo de alturas
+const heightClasses = {
+  small: 'min-h-[40vh]',
+  medium: 'min-h-[60vh]',
+  large: 'min-h-[80vh]',
+  full: 'min-h-screen'
+};
+
+// Mapeo de alineaciones
+const alignmentClasses = {
+  left: 'text-left items-start',
+  center: 'text-center items-center',
+  right: 'text-right items-end'
+};
+
+// Clases finales
+const sectionClass = `full-width relative flex flex-col justify-center ${heightClasses[height]} ${alignmentClasses[alignment]}`;
+---
+
+<section class={sectionClass}>
+  <!-- Fondo con imagen y overlay -->
+  <div 
+    class="absolute inset-0 bg-cover bg-center z-0" 
+    style={`background-image: url(${backgroundImage});`}
+  >
+    <div 
+      class="absolute inset-0 z-10" 
+      style={`background-color: ${overlayColor};`}
+    ></div>
+  </div>
+  
+  <!-- Contenido -->
+  <div class="container relative z-20 px-responsive">
+    <div class="max-w-3xl mx-auto">
+      <h1 
+        class={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4`}
+        style={`color: ${textColor};`}
+      >
+        {title}
+      </h1>
+      
+      {subtitle && (
+        <p 
+          class="text-xl md:text-2xl mb-8 opacity-90"
+          style={`color: ${textColor};`}
+        >
+          {subtitle}
+        </p>
+      )}
+      
+      {ctaText && (
+        <a 
+          href={ctaLink} 
+          class="inline-block bg-accent hover:bg-accent-dark text-white font-medium py-3 px-8 rounded-lg transition-colors duration-300"
+        >
+          {ctaText}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estilos adicionales específicos para este componente */
+  .full-width {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+</style> 

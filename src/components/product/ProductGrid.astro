@@ -1,0 +1,106 @@
+---
+import type { Product } from '../../lib/inventory';
+import ProductCard from './ProductCard.astro';
+
+interface Props {
+  products: Product[];
+  featured?: boolean;
+}
+
+const { products, featured = false } = Astro.props;
+---
+
+<div 
+  class="
+    product-grid
+    grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+    gap-6 md:gap-8
+  "
+  data-parallax-container
+>
+  {products.map((product, index) => (
+    <div 
+      class="product-item"
+      data-parallax-element
+      data-parallax-speed={Math.random() * 0.3 + 0.05}
+      style={`--parallax-delay: ${index * 0.1}s;`}
+    >
+      <ProductCard 
+        product={product} 
+        featured={featured && index === 0}
+        index={index}
+      />
+    </div>
+  ))}
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .product-item {
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.21, 0.45, 0.15, 1.00);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .product-item {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Parallax effect on scroll
+  const parallaxContainer = document.querySelector('[data-parallax-container]');
+  const parallaxElements = document.querySelectorAll('[data-parallax-element]');
+  
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    function handleParallax() {
+      const scrollY = window.scrollY;
+      
+      parallaxElements.forEach(element => {
+        const speed = element.getAttribute('data-parallax-speed') || 0.1;
+        const yOffset = scrollY * parseFloat(speed);
+        
+        element.style.transform = `translateY(${-yOffset}px)`;
+      });
+    }
+    
+    window.addEventListener('scroll', handleParallax);
+  }
+
+  // Reveal animation on scroll
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+    }
+  );
+
+  document.querySelectorAll('.product-item').forEach((item) => {
+    observer.observe(item);
+  });
+
+  // Helper class for CSS
+  document.documentElement.style.setProperty(
+    '--animation-delay-base',
+    '0.05s'
+  );
+</script>

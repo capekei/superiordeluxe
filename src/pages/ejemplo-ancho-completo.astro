@@ -1,0 +1,132 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ContentSection from '../components/ContentSection.astro';
+
+// Ejemplo de datos para la página
+const pageTitle = "Ejemplo de Ancho Completo";
+const pageDescription = "Página de demostración para solucionar problemas de ancho en Astro";
+---
+
+<MainLayout 
+  title={pageTitle} 
+  description={pageDescription}
+  fullWidth={true}
+>
+  <!-- Hero de ancho completo -->
+  <HeroSection
+    title="Solución de Ancho Completo"
+    subtitle="Esta sección ocupa todo el ancho de la pantalla sin importar el tamaño del dispositivo"
+    ctaText="Ver más abajo"
+    ctaLink="#content"
+    backgroundImage="/images/hero-bg.jpg"
+    height="large"
+  />
+  
+  <!-- Sección de contenido estándar -->
+  <ContentSection
+    id="content"
+    title="Contenido con Ancho Estándar"
+    subtitle="Esta sección respeta los márgenes del contenedor"
+    paddingY="large"
+    containerWidth="standard"
+    bgColor="#f9f9f9"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3>Solución para problemas de ancho</h3>
+        <p>
+          Los problemas de ancho en sitios Astro suelen deberse a configuraciones incorrectas en el meta viewport,
+          estilos CSS globales insuficientes, o estructuras de contenedores anidados con anchos fijos.
+        </p>
+        <p>
+          Esta página demuestra cómo implementar correctamente tanto secciones de ancho completo como
+          secciones con contenedores estándar.
+        </p>
+      </div>
+      <div>
+        <h3>Técnicas implementadas</h3>
+        <ul>
+          <li>Meta viewport correctamente configurado</li>
+          <li>Estilos CSS globales para html/body</li>
+          <li>Estructura de Layout.astro optimizada</li>
+          <li>Clase .container bien configurada</li>
+          <li>Clase .full-width para secciones de ancho completo</li>
+          <li>Ajustes responsivos para diferentes tamaños</li>
+        </ul>
+      </div>
+    </div>
+  </ContentSection>
+  
+  <!-- Sección de ancho completo con fondo de color -->
+  <div class="full-width bg-accent text-white py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Otra Sección de Ancho Completo</h2>
+        <p class="text-xl max-w-3xl mx-auto">
+          Esta sección también ocupa todo el ancho pero usa directamente las clases CSS
+          en lugar de un componente predefinido.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sección de contenido estrecho -->
+  <ContentSection
+    title="Contenido Estrecho"
+    subtitle="Esta sección usa un contenedor más estrecho para mejorar la legibilidad"
+    paddingY="large"
+    containerWidth="narrow"
+  >
+    <p>
+      Para contenido de texto largo, es recomendable usar un contenedor más estrecho
+      que mejore la legibilidad. La longitud de línea ideal para texto es de aproximadamente
+      65-75 caracteres.
+    </p>
+    <p>
+      Este componente ContentSection permite especificar diferentes anchos de contenedor
+      según las necesidades de cada sección.
+    </p>
+  </ContentSection>
+  
+  <!-- Sección de debugging -->
+  <ContentSection
+    title="Herramientas de Debugging"
+    subtitle="Usa estas clases para identificar problemas de layout"
+    paddingY="medium"
+    bgColor="#f0f0f0"
+  >
+    <div class="debug-layout p-4 mb-4">
+      <p>Este contenedor tiene la clase <code>debug-layout</code> que muestra los bordes de todos los elementos para facilitar la identificación de problemas.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div class="bg-white p-4">Columna 1</div>
+        <div class="bg-white p-4">Columna 2</div>
+        <div class="bg-white p-4">Columna 3</div>
+      </div>
+    </div>
+    
+    <div class="mt-8">
+      <h3>Consejos para debugging:</h3>
+      <ol>
+        <li>Usa la clase <code>debug-layout</code> para visualizar los bordes</li>
+        <li>Inspecciona los elementos con las herramientas de desarrollo del navegador</li>
+        <li>Verifica que no haya padding o margin inesperados</li>
+        <li>Comprueba que no haya elementos con width fijo que causen overflow</li>
+      </ol>
+    </div>
+  </ContentSection>
+</MainLayout>
+
+<style>
+  /* Estilos específicos para esta página */
+  code {
+    background-color: rgba(0,0,0,0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: monospace;
+  }
+  
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+</style> 

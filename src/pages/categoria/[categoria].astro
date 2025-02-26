@@ -1,0 +1,127 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import PublicHeader from '../../components/PublicHeader.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE } from '../../consts';
+import type { Product } from '../../types/product';
+
+// Required getStaticPaths function for dynamic routes
+export async function getStaticPaths() {
+  // Import products data inside getStaticPaths to ensure it's in scope
+  const productsData = await import('../../data/products.json');
+  const allProducts = productsData.default.products as Product[];
+  
+  // Get all unique categories
+  const categories = [...new Set(allProducts.map(product => product.category.toLowerCase()))];
+  
+  // Return paths for each category
+  return categories.map(categoria => ({
+    params: { categoria },
+    props: { categoryProducts: allProducts.filter(product => product.category.toLowerCase() === categoria) }
+  }));
+}
+
+// Get props from getStaticPaths
+const { categoryProducts } = Astro.props;
+
+// Get category from URL
+const { categoria } = Astro.params;
+const categoryName = categoria?.charAt(0).toUpperCase() + categoria?.slice(1);
+
+// If no products found, redirect to catalog
+if (categoryProducts.length === 0) {
+  return Astro.redirect('/catalogo');
+}
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={`${categoryName} - ${SITE_TITLE}`} description={`Explora nuestra selección de ${categoryName} en Superior Deluxe`} />
+	</head>
+	<body class="bg-gray-50 min-h-screen flex flex-col">
+		<PublicHeader />
+		
+		<main class="flex-grow pt-24 pb-16">
+			<div class="container mx-auto px-4">
+				<!-- Breadcrumbs -->
+				<nav class="flex mb-8 text-sm">
+					<a href="/" class="text-gray-500 hover:text-gray-700">Inicio</a>
+					<span class="mx-2 text-gray-400">/</span>
+					<a href="/catalogo" class="text-gray-500 hover:text-gray-700">Catálogo</a>
+					<span class="mx-2 text-gray-400">/</span>
+					<span class="text-gray-800">{categoryName}</span>
+				</nav>
+				
+				<!-- Category header -->
+				<div class="mb-12 text-center">
+					<h1 class="text-4xl font-bold text-gray-800 mb-4">{categoryName}</h1>
+					<p class="text-gray-600 max-w-2xl mx-auto">
+						Explora nuestra selección de {categoryName.toLowerCase()} de alta calidad, diseñados para ofrecer el mejor rendimiento y durabilidad.
+					</p>
+				</div>
+				
+				<!-- Products grid -->
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+					{categoryProducts.map(product => (
+						<div class="bg-white rounded-lg shadow-sm overflow-hidden transition-transform hover:shadow-md hover:-translate-y-1">
+							<div class="relative">
+								<img 
+									src={product.imageUrl || '/images/placeholder.jpg'} 
+									alt={product.name}
+									class="w-full h-56 object-cover"
+								/>
+								{product.badge && (
+									<span class={`absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded ${
+										product.badge === 'Nuevo' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+									}`}>
+										{product.badge}
+									</span>
+								)}
+							</div>
+							<div class="p-5">
+								<h2 class="text-xl font-semibold text-gray-800 mb-2">{product.name}</h2>
+								<p class="text-gray-600 mb-4">{product.shortDesc}</p>
+								
+								{product.keyFeature && (
+									<div class="mb-4">
+										<span class="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+											{product.keyFeature}
+										</span>
+									</div>
+								)}
+								
+								<div class="flex justify-between items-center mt-4">
+									{product.price && (
+										<span class="text-xl font-bold text-gray-800">${product.price}</span>
+									)}
+									<a 
+										href={`/producto/${product.id}`} 
+										class="px-4 py-2 bg-gray-800 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors"
+									>
+										Ver detalles
+									</a>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+				
+				<!-- Back to catalog -->
+				<div class="mt-12 text-center">
+					<a 
+						href="/catalogo" 
+						class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+					>
+						<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+						</svg>
+						Volver al catálogo
+					</a>
+				</div>
+			</div>
+		</main>
+		
+		<Footer />
+	</body>
+</html> 

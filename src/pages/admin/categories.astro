@@ -1,0 +1,207 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { products } from '../../data/products.json';
+
+// Obtener categorías únicas y contar productos por categoría
+const categories = [...new Set(products.map(product => product.category))];
+
+const categoryStats = categories.map(category => {
+  const productsInCategory = products.filter(product => product.category === category);
+  return {
+    name: category,
+    count: productsInCategory.length,
+    products: productsInCategory.slice(0, 3), // Obtener los primeros 3 productos de cada categoría
+    totalProducts: productsInCategory.length
+  };
+});
+---
+
+<AdminLayout title="Gestión de Categorías">
+  <div class="mb-6 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Gestión de Categorías</h1>
+      <p class="text-gray-600">Administra las categorías de productos</p>
+    </div>
+    <button id="addCategoryBtn" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      </svg>
+      Añadir Categoría
+    </button>
+  </div>
+
+  <!-- Categorías existentes -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {categoryStats.map((category) => (
+      <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold text-gray-900 capitalize">{category.name}</h2>
+            <span class="px-3 py-1 text-sm text-red-700 bg-red-100 rounded-full">
+              {category.count} productos
+            </span>
+          </div>
+          
+          <div class="space-y-3 mb-4">
+            {category.products.map(product => (
+              <div class="flex items-center">
+                <div class="h-8 w-8 bg-gray-100 rounded-md flex items-center justify-center text-gray-500 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                  </svg>
+                </div>
+                <div class="text-sm text-gray-800 truncate">{product.name}</div>
+              </div>
+            ))}
+            
+            {category.totalProducts > 3 && (
+              <div class="text-xs text-gray-500">
+                Y {category.totalProducts - 3} productos más...
+              </div>
+            )}
+          </div>
+          
+          <div class="flex space-x-2 mt-4">
+            <button class="edit-category px-3 py-1 text-sm text-red-700 bg-red-50 hover:bg-red-100 rounded-md flex items-center" data-category={category.name}>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 0L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Editar
+            </button>
+            <button class="delete-category px-3 py-1 text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-md flex items-center" data-category={category.name}>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Eliminar
+            </button>
+            <a href={`/admin/inventory?category=${category.name}`} class="px-3 py-1 text-sm text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Ver Productos
+            </a>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Modal para añadir/editar categoría -->
+  <div id="categoryModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+      <h3 id="modalTitle" class="text-lg font-medium text-gray-900 mb-4">Añadir Categoría</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <label for="categoryName" class="block text-sm font-medium text-gray-700 mb-1">Nombre de la categoría</label>
+          <input type="text" id="categoryName" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+        </div>
+        
+        <div>
+          <label for="categoryDescription" class="block text-sm font-medium text-gray-700 mb-1">Descripción (opcional)</label>
+          <textarea id="categoryDescription" rows="3" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"></textarea>
+        </div>
+      </div>
+      
+      <div class="mt-6 flex justify-end space-x-3">
+        <button id="cancelCategoryBtn" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Cancelar
+        </button>
+        <button id="saveCategoryBtn" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Guardar
+        </button>
+      </div>
+      
+      <input type="hidden" id="editCategoryId" value="">
+    </div>
+  </div>
+</AdminLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Referencias al modal y sus elementos
+    const categoryModal = document.getElementById('categoryModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const categoryNameInput = document.getElementById('categoryName');
+    const categoryDescriptionInput = document.getElementById('categoryDescription');
+    const editCategoryIdInput = document.getElementById('editCategoryId');
+    
+    // Botones
+    const addCategoryBtn = document.getElementById('addCategoryBtn');
+    const saveCategoryBtn = document.getElementById('saveCategoryBtn');
+    const cancelCategoryBtn = document.getElementById('cancelCategoryBtn');
+    const editCategoryBtns = document.querySelectorAll('.edit-category');
+    const deleteCategoryBtns = document.querySelectorAll('.delete-category');
+    
+    // Mostrar modal para añadir categoría
+    addCategoryBtn.addEventListener('click', () => {
+      modalTitle.textContent = 'Añadir Categoría';
+      categoryNameInput.value = '';
+      categoryDescriptionInput.value = '';
+      editCategoryIdInput.value = '';
+      categoryModal.classList.remove('hidden');
+    });
+    
+    // Mostrar modal para editar categoría
+    editCategoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const categoryName = btn.getAttribute('data-category');
+        modalTitle.textContent = 'Editar Categoría';
+        categoryNameInput.value = categoryName;
+        categoryDescriptionInput.value = ''; // En un sistema real, cargaríamos la descripción existente
+        editCategoryIdInput.value = categoryName;
+        categoryModal.classList.remove('hidden');
+      });
+    });
+    
+    // Eliminar categoría
+    deleteCategoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const categoryName = btn.getAttribute('data-category');
+        if (confirm(`¿Estás seguro de que deseas eliminar la categoría "${categoryName}"? Esta acción no se puede deshacer.`)) {
+          // En un sistema real, eliminaríamos la categoría de la base de datos
+          // Por ahora, simplemente ocultamos el elemento
+          btn.closest('.bg-white').classList.add('hidden');
+          alert(`Categoría "${categoryName}" eliminada con éxito.`);
+        }
+      });
+    });
+    
+    // Cerrar modal
+    cancelCategoryBtn.addEventListener('click', () => {
+      categoryModal.classList.add('hidden');
+    });
+    
+    // Guardar categoría
+    saveCategoryBtn.addEventListener('click', () => {
+      const categoryName = categoryNameInput.value.trim();
+      const categoryDescription = categoryDescriptionInput.value.trim();
+      const editCategoryId = editCategoryIdInput.value;
+      
+      if (!categoryName) {
+        alert('Por favor ingresa un nombre para la categoría.');
+        return;
+      }
+      
+      // En un sistema real, guardaríamos los cambios en la base de datos
+      // Por ahora, simplemente mostramos un mensaje y cerramos el modal
+      
+      if (editCategoryId) {
+        alert(`Categoría "${editCategoryId}" actualizada a "${categoryName}" con éxito.`);
+      } else {
+        alert(`Nueva categoría "${categoryName}" creada con éxito.`);
+      }
+      
+      // Cerrar modal
+      categoryModal.classList.add('hidden');
+    });
+    
+    // Cerrar modal al hacer clic fuera de él
+    categoryModal.addEventListener('click', (e) => {
+      if (e.target === categoryModal) {
+        categoryModal.classList.add('hidden');
+      }
+    });
+  });
+</script>

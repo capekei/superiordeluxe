@@ -1,0 +1,145 @@
+---
+import type { Product } from '../types/product';
+
+interface Props {
+  product: Product;
+  buttonStyle?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  showIcon?: boolean;
+  showText?: boolean;
+  text?: string;
+}
+
+const { 
+  product, 
+  buttonStyle = 'primary', 
+  size = 'md', 
+  showIcon = true, 
+  showText = true,
+  text = 'Añadir al carrito'
+} = Astro.props;
+
+// Definir clases según el estilo y tamaño
+const buttonClasses = {
+  primary: 'bg-accent text-white hover:bg-accent-dark',
+  secondary: 'bg-gray-100 text-accent hover:bg-gray-200',
+  outline: 'bg-transparent text-accent border border-accent hover:bg-accent/10'
+};
+
+const sizeClasses = {
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-4 py-2',
+  lg: 'px-6 py-3 text-lg'
+};
+
+const buttonClass = `${buttonClasses[buttonStyle]} ${sizeClasses[size]} rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-medium shadow-sm hover:shadow relative overflow-hidden group`;
+---
+
+<button
+  id={`add-to-cart-${product.id}`}
+  class={buttonClass}
+  data-product-id={product.id}
+  data-product-name={product.name}
+  aria-label="Añadir al carrito"
+>
+  <span class="relative z-10 flex items-center gap-2">
+    {showIcon && (
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    )}
+    {showText && <span>{text}</span>}
+  </span>
+  <span class="absolute inset-0 bg-gradient-to-r from-accent-light to-accent -z-0 transform -translate-x-full group-hover:translate-x-0 transition-all duration-500 opacity-0 group-hover:opacity-100"></span>
+</button>
+
+<script>
+  // Importar las utilidades del carrito en lugar del store directamente
+  import { addToCart } from '../lib/cartUtils';
+  
+  // Esperar a que el DOM esté completamente cargado
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM cargado - inicializando botones de añadir al carrito');
+    
+    // Obtener todos los botones de añadir al carrito
+    document.querySelectorAll('[id^="add-to-cart-"]').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          // Añadir efecto de clic
+          button.classList.add('scale-95');
+          setTimeout(() => {
+            button.classList.remove('scale-95');
+          }, 150);
+          
+          // Obtener el ID del producto del atributo data
+          const productId = button.getAttribute('data-product-id');
+          const productName = button.getAttribute('data-product-name') || 'Producto';
+          
+          if (!productId) {
+            throw new Error('ID de producto no encontrado');
+          }
+          
+          console.log('Intentando añadir producto con ID:', productId);
+          
+          // Log de todos los contenedores de productos en la página
+          console.log('Todos los contenedores de productos en la página:');
+          document.querySelectorAll('[id^="product-container-"]').forEach(container => {
+            console.log('Contenedor encontrado:', container.id);
+          });
+          
+          // Obtener los datos del producto desde el contenedor
+          const productContainer = document.getElementById(`product-container-${productId}`);
+          
+          // Depuración detallada
+          if (!productContainer) {
+            console.error(`No se encontró el contenedor para el producto con ID: ${productId}`);
+            console.log('Contenedor buscado:', `product-container-${productId}`);
+            console.log('Todos los IDs en la página:');
+            document.querySelectorAll('[id]').forEach(el => {
+              console.log(el.id);
+            });
+            throw new Error(`No se encontró el contenedor del producto (ID: ${productId})`);
+          }
+          
+          console.log('Contenedor encontrado:', productContainer.id);
+          
+          const productJsonStr = productContainer.getAttribute('data-product-json');
+          if (!productJsonStr) {
+            console.error('Contenedor encontrado pero sin atributo data-product-json');
+            console.log('Atributos disponibles:', Array.from(productContainer.attributes).map(a => a.name));
+            throw new Error('No se encontraron datos JSON del producto');
+          }
+          
+          console.log('JSON del producto encontrado (primeros 30 caracteres):', 
+            productJsonStr.substring(0, 30));
+          
+          // Parsear el JSON del producto
+          const productData = JSON.parse(productJsonStr);
+          
+          // Validar que el producto tenga un ID
+          if (!productData || !productData.id) {
+            throw new Error('Datos de producto inválidos o sin ID');
+          }
+          
+          console.log('Producto parseado correctamente:', productData.name);
+          
+          // Añadir al carrito usando la utilidad segura
+          addToCart(productData);
+          console.log('Producto añadido al carrito:', productData.name);
+          
+          // Mostrar notificación usando el componente mejorado
+          if (window.showCartNotification) {
+            window.showCartNotification(productName);
+          }
+          
+        } catch (error) {
+          console.error('Error al añadir al carrito:', error);
+          
+          // Mostrar error en la consola y como alerta
+          const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
+          alert('Error al añadir al carrito: ' + errorMessage);
+        }
+      });
+    });
+  });
+</script>

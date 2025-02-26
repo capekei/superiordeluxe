@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="es"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.1.3"><!-- Font preloads --><link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin><link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://superiordeluxe.com/admin/inventory/"><!-- Primary Meta Tags --><title>Inventario de Productos - Superior Deluxe</title><meta name="title" content="Inventario de Productos - Superior Deluxe"><meta name="description" content="Gestiona tu inventario de productos"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://superiordeluxe.com/admin/inventory/"><meta property="og:title" content="Inventario de Productos - Superior Deluxe"><meta property="og:description" content="Gestiona tu inventario de productos"><meta property="og:image" content="https://superiordeluxe.com/images/og-image.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://superiordeluxe.com/admin/inventory/"><meta property="twitter:title" content="Inventario de Productos - Superior Deluxe"><meta property="twitter:description" content="Gestiona tu inventario de productos"><meta property="twitter:image" content="https://superiordeluxe.com/images/og-image.jpg"><!-- Fonts --><!-- Google Fonts - Satoshi and Inter --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/about.DgdDbDPs.css">
+<link rel="stylesheet" href="/_astro/categories.djIdwW66.css"></head> <body class="bg-gray-100 min-h-screen flex flex-col"> <div class="flex min-h-screen"> <!-- Sidebar --> <div class="w-64 bg-white shadow-md"> <div class="p-4 flex justify-center"> <!-- Commented out logo
+                    <img class="h-10" src="/images/logo-superior.svg" alt="Superior Deluxe" />
+                    --> </div> <nav class="mt-6"> <div class="px-4 py-2"> <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+Principal
+</div> <div class="mt-2 -mx-3"> <a href="/admin" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path> </svg> <span>Dashboard</span> </span> </a> <a href="/admin/inventory" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 bg-red-50 text-red-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path> </svg> <span>Inventario</span> </span> </a> <a href="/admin/categories" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path> </svg> <span>Categorías</span> </span> </a> </div> </div> <div class="px-4 py-2 mt-4"> <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+Configuración
+</div> <div class="mt-2 -mx-3"> <a href="/admin/settings" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path> </svg> <span>Ajustes</span> </span> </a> </div> </div> </nav> <div class="px-4 py-2 mt-auto mb-4"> <div class="border-t pt-4"> <button id="logoutButton" class="w-full flex items-center px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path> </svg> <span>Cerrar Sesión</span> </button> </div> </div> </div> <!-- Main Content --> <div class="flex-1 flex flex-col overflow-hidden"> <!-- Header --> <header class="bg-white shadow-sm z-10"> <div class="px-4 py-3 flex justify-between items-center"> <div> <h1 class="text-lg font-medium text-gray-900">Inventario de Productos</h1> </div> <div class="flex items-center space-x-4"> <div class="relative"> <a href="/" target="_blank" class="flex items-center text-gray-700 hover:text-red-600"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> <span class="text-sm">Ver Sitio</span> </a> </div> </div> </div> </header> <!-- Page Content --> <main class="flex-1 overflow-auto bg-gray-100 p-4">  <div class="mb-6 flex justify-between items-center"> <div> <h1 class="text-2xl font-bold text-gray-900">Gestión de Inventario</h1> <p class="text-gray-600">Administra todos los productos de tu catálogo</p> </div> <div class="flex space-x-2"> <button id="bulkDeleteBtn" class="hidden items-center px-4 py-2 bg-red-100 border border-red-200 rounded-md font-semibold text-sm text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path> </svg>
+Eliminar Seleccionados (<span id="selectedCount">0</span>)
+</button> <a href="/admin/inventory/new" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path> </svg>
+Añadir Producto
+</a> </div> </div>  <div class="bg-white shadow rounded-lg p-4 mb-6"> <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> <div> <label for="searchInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar productos</label> <div class="relative"> <input type="text" id="searchInput" placeholder="Buscar por nombre o ID..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm"> <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path> </svg> </div> </div> </div> <div> <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por categoría</label> <select id="categoryFilter" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <option value="">Todas las categorías</option> <option value="Neveras">Neveras</option><option value="Congeladores">Congeladores</option><option value="Exhibidores">Exhibidores</option><option value="Heladeros">Heladeros</option><option value="Estufas">Estufas</option><option value="Lavadoras">Lavadoras</option> </select> </div> <div> <label for="sortBy" class="block text-sm font-medium text-gray-700 mb-1">Ordenar por</label> <select id="sortBy" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <option value="name_asc">Nombre (A-Z)</option> <option value="name_desc">Nombre (Z-A)</option> <option value="price_asc">Precio (menor a mayor)</option> <option value="price_desc">Precio (mayor a menor)</option> <option value="id_asc">ID (ascendente)</option> <option value="id_desc">ID (descendente)</option> </select> </div> </div> </div>  <div class="bg-white shadow rounded-lg overflow-hidden"> <div class="overflow-x-auto"> <table class="min-w-full divide-y divide-gray-200" id="productsTable"> <thead class="bg-gray-50"> <tr> <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> <div class="flex items-center"> <input id="selectAllCheckbox" type="checkbox" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"> </div> </th> <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+ID
+</th> <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Producto
+</th> <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Categoría
+</th> <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Precio
+</th> <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+Estado
+</th> <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+Acciones
+</th> </tr> </thead> <tbody class="bg-white divide-y divide-gray-200"> <tr class="product-row" data-category="Lavadoras" data-name="PM0615" data-id="29" data-price="279"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="29"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#29 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM0615</div> <div class="text-xs text-gray-500 truncate max-w-xs">Lavadora de 15 libras de capacidad, compacta e ide...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Lavadoras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$279 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/29" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="29">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Lavadoras" data-name="PM0820" data-id="30" data-price="329"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="30"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#30 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM0820</div> <div class="text-xs text-gray-500 truncate max-w-xs">Lavadora de 20 libras de capacidad, equilibrio per...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Lavadoras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$329 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/30" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="30">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Lavadoras" data-name="PM1025" data-id="31" data-price="379"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="31"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#31 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM1025</div> <div class="text-xs text-gray-500 truncate max-w-xs">Lavadora de 25 libras de capacidad, ideal para fam...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Lavadoras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$379 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/31" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="31">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM1060HFS" data-id="28" data-price="479"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="28"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#28 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM1060HFS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa premium de 30 pulgadas color plateado, con ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$479 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/28" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="28">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Lavadoras" data-name="PM1229" data-id="32" data-price="429"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="32"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#32 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM1229</div> <div class="text-xs text-gray-500 truncate max-w-xs">Lavadora de 29 libras de capacidad, máxima capacid...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Lavadoras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$429 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/32" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="32">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM145" data-id="11" data-price="329"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="11"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#11 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM145</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 5.1 pies cúbicos, compact...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$329 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/11" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="11">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM200" data-id="12" data-price="399"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="12"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#12 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM200</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 7.1 pies cúbicos, ideal p...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$399 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/12" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="12">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM2165G" data-id="24" data-price="339"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="24"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#24 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2165G</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 21 pulgadas color gris, diseño elegante ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$339 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/24" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="24">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM2165N/B" data-id="23" data-price="329"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="23"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#23 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2165N/B</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 21 pulgadas disponible en colores negro ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$329 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/23" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="23">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PM2205S" data-id="1" data-price="499"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="1"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#1 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2205S</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con sistema Auto Frost de 8 pies cúbicos, i...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$499 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/1" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="1">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PM2262DS" data-id="3" data-price="649"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="3"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#3 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2262DS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con sistema Auto Frost de 11 pies cúbicos c...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$649 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/3" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="3">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PM2262S" data-id="2" data-price="599"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="2"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#2 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2262S</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con sistema Auto Frost de 11 pies cúbicos, ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$599 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/2" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="2">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PM2371DS" data-id="8" data-price="799"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="8"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#8 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2371DS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera No Frost de 15 pies cúbicos con dispensador...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$799 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/8" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="8">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PM2371S" data-id="7" data-price="749"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="7"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#7 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM2371S</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera No Frost de 15 pies cúbicos, amplio espacio...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$749 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/7" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="7">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM290" data-id="13" data-price="499"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="13"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#13 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM290</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 10.2 pies cúbicos, gran c...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$499 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/13" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="13">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM380" data-id="14" data-price="599"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="14"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#14 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM380</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 13.4 pies cúbicos, excele...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$599 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/14" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="14">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM508" data-id="15" data-price="799"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="15"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#15 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM508</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 18 pies cúbicos, capacida...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$799 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/15" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="15">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Congeladores" data-name="PM708" data-id="16" data-price="999"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="16"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#16 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM708</div> <div class="text-xs text-gray-500 truncate max-w-xs">Congelador horizontal de 25 pies cúbicos, máxima c...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Congeladores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$999 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/16" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="16">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM740HFS" data-id="25" data-price="319"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="25"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#25 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM740HFS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 20 pulgadas color plateado, compacta y f...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$319 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/25" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="25">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM840HFS" data-id="26" data-price="369"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="26"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#26 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM840HFS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 24 pulgadas color plateado, tamaño medio...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$369 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/26" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="26">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PM950HFS" data-id="27" data-price="429"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="27"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#27 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PM950HFS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 30 pulgadas color plateado, amplia super...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$429 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/27" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="27">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Exhibidores" data-name="PMEF211" data-id="17" data-price="699"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="17"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#17 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMEF211</div> <div class="text-xs text-gray-500 truncate max-w-xs">Exhibidor vertical de 8 pies cúbicos con sistema F...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Exhibidores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$699 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/17" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="17">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Exhibidores" data-name="PMEF309" data-id="18" data-price="849"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="18"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#18 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMEF309</div> <div class="text-xs text-gray-500 truncate max-w-xs">Exhibidor vertical de 11 pies cúbicos con sistema ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Exhibidores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$849 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/18" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="18">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Exhibidores" data-name="PMEFF416" data-id="19" data-price="999"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="19"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#19 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMEFF416</div> <div class="text-xs text-gray-500 truncate max-w-xs">Exhibidor vertical de 15 pies cúbicos con tecnolog...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Exhibidores </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$999 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/19" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="19">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PMFF2197S" data-id="4" data-price="549"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="4"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#4 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMFF2197S</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con tecnología No Frost de 8 pies cúbicos, ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$549 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/4" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="4">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PMFF2245DS" data-id="5" data-price="599"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="5"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#5 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMFF2245DS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con sistema No Frost de 9 pies cúbicos con ...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$599 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/5" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="5">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PMFF2333SNF" data-id="6" data-price="699"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="6"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#6 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMFF2333SNF</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con avanzado sistema No Frost de 13 pies cú...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$699 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/6" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="6">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PMFF2415DS" data-id="10" data-price="819"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="10"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#10 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMFF2415DS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera No Frost de 15 pies cúbicos con dispensador...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$819 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/10" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="10">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Neveras" data-name="PMFF2415S" data-id="9" data-price="769"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="9"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#9 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMFF2415S</div> <div class="text-xs text-gray-500 truncate max-w-xs">Nevera con sistema No Frost de 15 pies cúbicos, di...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Neveras </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$769 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/9" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="9">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PMH741HFN" data-id="21" data-price="299"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="21"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#21 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMH741HFN</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 20 pulgadas color negro, diseño elegante...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$299 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/21" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="21">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Estufas" data-name="PMH741HFS" data-id="22" data-price="309"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="22"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#22 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMH741HFS</div> <div class="text-xs text-gray-500 truncate max-w-xs">Estufa de 20 pulgadas color plateado, ideal para e...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Estufas </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$309 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/22" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="22">
+Eliminar
+</button> </td> </tr><tr class="product-row" data-category="Heladeros" data-name="PMMHEL2254" data-id="20" data-price="899"> <td class="px-4 py-4 whitespace-nowrap"> <input type="checkbox" class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded" data-id="20"> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+#20 </td> <td class="px-6 py-4 whitespace-nowrap"> <div class="flex items-center"> <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path> </svg> </div> <div class="ml-4"> <div class="text-sm font-medium text-gray-900">PMMHEL2254</div> <div class="text-xs text-gray-500 truncate max-w-xs">Heladero de 9 pies cúbicos, perfecto para almacena...</div> </div> </div> </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800"> Heladeros </span> </td> <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+$899 </td> <td class="px-6 py-4 whitespace-nowrap"> <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Disponible </span> </td> <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"> <a href="/admin/inventory/20" class="text-red-600 hover:text-red-900 mr-3">
+Editar
+</a> <button class="delete-product text-gray-600 hover:text-gray-900" data-id="20">
+Eliminar
+</button> </td> </tr> </tbody> </table> </div> <!-- Mensaje cuando no hay resultados --> <div id="noResults" class="hidden px-6 py-4 text-center text-gray-500">
+No se encontraron productos que coincidan con los criterios de búsqueda.
+</div> </div>  <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-4 rounded-lg shadow"> <div class="flex-1 flex justify-between sm:hidden"> <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+Anterior
+</a> <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+Siguiente
+</a> </div> <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"> <div> <p class="text-sm text-gray-700">
+Mostrando <span class="font-medium">1</span> a <span class="font-medium">10</span> de <span class="font-medium">32</span> resultados
+</p> </div> <div> <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination"> <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"> <span class="sr-only">Anterior</span> <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"> <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path> </svg> </a> <a href="#" aria-current="page" class="z-10 bg-red-50 border-red-500 text-red-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+1
+</a> <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+2
+</a> <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+3
+</a> <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+...
+</span> <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"> 4 </a> <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"> <span class="sr-only">Siguiente</span> <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"> <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path> </svg> </a> </nav> </div> </div> </div>  </main> </div> </div> <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Verificar autenticación
+                const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
+                
+                if (!isAuthenticated && !window.location.pathname.includes('/admin/login')) {
+                    window.location.href = '/admin/login';
+                }
+                
+                // Configurar cierre de sesión
+                const logoutButton = document.getElementById('logoutButton');
+                logoutButton?.addEventListener('click', () => {
+                    localStorage.removeItem('adminAuthenticated');
+                    localStorage.removeItem('adminLastLogin');
+                    window.location.href = '/admin/login';
+                });
+            });
+        </script> </body> </html> <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortBy = document.getElementById('sortBy');
+    const productRows = document.querySelectorAll('.product-row');
+    const noResults = document.getElementById('noResults');
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+    const selectedCountSpan = document.getElementById('selectedCount');
+    
+    // Función para manejar la selección de productos
+    function handleProductSelection() {
+      const checkboxes = document.querySelectorAll('.product-checkbox:not(:disabled)');
+      const selectedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
+      
+      // Actualizar contador y botón de eliminación masiva
+      selectedCountSpan.textContent = selectedCheckboxes.length;
+      
+      if (selectedCheckboxes.length > 0) {
+        bulkDeleteBtn.classList.remove('hidden');
+        bulkDeleteBtn.classList.add('inline-flex');
+      } else {
+        bulkDeleteBtn.classList.add('hidden');
+        bulkDeleteBtn.classList.remove('inline-flex');
+      }
+      
+      // Actualizar estado del checkbox "Seleccionar todos"
+      if (selectedCheckboxes.length === checkboxes.length && checkboxes.length > 0) {
+        selectAllCheckbox.checked = true;
+        selectAllCheckbox.indeterminate = false;
+      } else if (selectedCheckboxes.length === 0) {
+        selectAllCheckbox.checked = false;
+        selectAllCheckbox.indeterminate = false;
+      } else {
+        selectAllCheckbox.indeterminate = true;
+      }
+    }
+    
+    // Seleccionar/deseleccionar todos los productos
+    selectAllCheckbox.addEventListener('change', () => {
+      const checkboxes = document.querySelectorAll('.product-checkbox:not(:disabled)');
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+      
+      handleProductSelection();
+    });
+    
+    // Agregar listener a los checkboxes individuales
+    document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', handleProductSelection);
+    });
+    
+    // Botón de eliminación masiva
+    bulkDeleteBtn.addEventListener('click', () => {
+      const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
+                               .map(checkbox => checkbox.getAttribute('data-id'));
+      
+      if (selectedIds.length === 0) return;
+      
+      if (confirm(`¿Estás seguro de que deseas eliminar ${selectedIds.length} productos?`)) {
+        // Obtener productos actuales
+        const currentProducts = getProducts();
+        
+        // Filtrar productos a eliminar
+        const updatedProducts = currentProducts.filter(product => !selectedIds.includes(product.id));
+        
+        // Guardar en localStorage
+        saveProducts(updatedProducts);
+        
+        // Ocultar filas de productos eliminados
+        selectedIds.forEach(id => {
+          const row = document.querySelector(`.product-row[data-id="${id}"]`);
+          if (row) row.classList.add('hidden');
+        });
+        
+        // Restablecer selección
+        selectAllCheckbox.checked = false;
+        handleProductSelection();
+        
+        alert(`${selectedIds.length} productos eliminados con éxito.`);
+      }
+    });
+    
+    // Función para guardar productos en localStorage
+    function saveProducts(products) {
+      localStorage.setItem('products', JSON.stringify(products));
+      return products;
+    }
+    
+    // Función para obtener productos de localStorage o usar los predeterminados
+    function getProducts() {
+      const storedProducts = localStorage.getItem('products');
+      if (storedProducts) {
+        return JSON.parse(storedProducts);
+      }
+      // Si no hay productos en localStorage, guardar los productos predeterminados
+      return saveProducts(Array.from(productRows).map(row => {
+        return {
+          id: row.getAttribute('data-id'),
+          name: row.getAttribute('data-name'),
+          category: row.getAttribute('data-category'),
+          price: parseFloat(row.getAttribute('data-price'))
+        };
+      }));
+    }
+    
+    // Función para filtrar y ordenar productos
+    function filterAndSortProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const categoryValue = categoryFilter.value.toLowerCase();
+      const sortValue = sortBy.value;
+      
+      let visibleCount = 0;
+      
+      // Filtrar productos
+      productRows.forEach(row => {
+        const name = row.getAttribute('data-name').toLowerCase();
+        const id = row.getAttribute('data-id').toLowerCase();
+        const category = row.getAttribute('data-category').toLowerCase();
+        
+        const matchesSearch = name.includes(searchTerm) || id.includes(searchTerm);
+        const matchesCategory = categoryValue === '' || category === categoryValue;
+        
+        if (matchesSearch && matchesCategory) {
+          row.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+      
+      // Mostrar mensaje si no hay resultados
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+      
+      // Ordenar productos
+      const rows = Array.from(productRows).filter(row => !row.classList.contains('hidden'));
+      const table = document.getElementById('productsTable');
+      const tbody = table.querySelector('tbody');
+      
+      rows.sort((a, b) => {
+        switch (sortValue) {
+          case 'name_asc':
+            return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+          case 'name_desc':
+            return b.getAttribute('data-name').localeCompare(a.getAttribute('data-name'));
+          case 'price_asc':
+            return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+          case 'price_desc':
+            return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+          case 'id_asc':
+            return parseInt(a.getAttribute('data-id')) - parseInt(b.getAttribute('data-id'));
+          case 'id_desc':
+            return parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id'));
+          default:
+            return 0;
+        }
+      });
+      
+      // Reordenar los elementos en el DOM
+      rows.forEach(row => tbody.appendChild(row));
+    }
+    
+    // Agregar event listeners
+    searchInput.addEventListener('input', filterAndSortProducts);
+    categoryFilter.addEventListener('change', filterAndSortProducts);
+    sortBy.addEventListener('change', filterAndSortProducts);
+    
+    // Configurar botones de eliminar
+    document.querySelectorAll('.delete-product').forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Evitar problemas de event bubbling
+        const target = e.target.closest('.delete-product');
+        const id = target.getAttribute('data-id');
+        
+        if (confirm(`¿Estás seguro de que deseas eliminar el producto #${id}?`)) {
+          // Obtener productos actuales
+          const currentProducts = getProducts();
+          
+          // Eliminar el producto
+          const updatedProducts = currentProducts.filter(product => product.id !== id);
+          
+          // Guardar en localStorage
+          saveProducts(updatedProducts);
+          
+          // Ocultar la fila
+          target.closest('tr').classList.add('hidden');
+          
+          alert(`Producto #${id} eliminado con éxito.`);
+        }
+      });
+    });
+    
+    // Configurar los enlaces de edición
+    document.querySelectorAll('a[href^="/admin/inventory/"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Solo para eventos que no son el enlace de "Añadir Producto"
+        if (!e.currentTarget.href.includes('/admin/inventory/new')) {
+          // No prevenimos la navegación, dejamos que vaya a la página de edición
+          // No es necesario hacer nada aquí, la navegación predeterminada funcionará
+        }
+      });
+    });
+  });
+</script>

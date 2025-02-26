@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="es"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.1.3"><!-- Font preloads --><link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin><link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin><!-- Canonical URL --><link rel="canonical" href="https://superiordeluxe.com/admin/inventory/17/"><!-- Primary Meta Tags --><title>Editar Producto - Superior Deluxe</title><meta name="title" content="Editar Producto - Superior Deluxe"><meta name="description" content="Gestiona tu inventario de productos"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://superiordeluxe.com/admin/inventory/17/"><meta property="og:title" content="Editar Producto - Superior Deluxe"><meta property="og:description" content="Gestiona tu inventario de productos"><meta property="og:image" content="https://superiordeluxe.com/images/og-image.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://superiordeluxe.com/admin/inventory/17/"><meta property="twitter:title" content="Editar Producto - Superior Deluxe"><meta property="twitter:description" content="Gestiona tu inventario de productos"><meta property="twitter:image" content="https://superiordeluxe.com/images/og-image.jpg"><!-- Fonts --><!-- Google Fonts - Satoshi and Inter --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/about.DgdDbDPs.css">
+<link rel="stylesheet" href="/_astro/categories.djIdwW66.css"></head> <body class="bg-gray-100 min-h-screen flex flex-col"> <div class="flex min-h-screen"> <!-- Sidebar --> <div class="w-64 bg-white shadow-md"> <div class="p-4 flex justify-center"> <!-- Commented out logo
+                    <img class="h-10" src="/images/logo-superior.svg" alt="Superior Deluxe" />
+                    --> </div> <nav class="mt-6"> <div class="px-4 py-2"> <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+Principal
+</div> <div class="mt-2 -mx-3"> <a href="/admin" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path> </svg> <span>Dashboard</span> </span> </a> <a href="/admin/inventory" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 bg-red-50 text-red-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path> </svg> <span>Inventario</span> </span> </a> <a href="/admin/categories" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path> </svg> <span>Categorías</span> </span> </a> </div> </div> <div class="px-4 py-2 mt-4"> <div class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+Configuración
+</div> <div class="mt-2 -mx-3"> <a href="/admin/settings" class="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700"> <span class="flex items-center"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path> </svg> <span>Ajustes</span> </span> </a> </div> </div> </nav> <div class="px-4 py-2 mt-auto mb-4"> <div class="border-t pt-4"> <button id="logoutButton" class="w-full flex items-center px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path> </svg> <span>Cerrar Sesión</span> </button> </div> </div> </div> <!-- Main Content --> <div class="flex-1 flex flex-col overflow-hidden"> <!-- Header --> <header class="bg-white shadow-sm z-10"> <div class="px-4 py-3 flex justify-between items-center"> <div> <h1 class="text-lg font-medium text-gray-900">Editar Producto</h1> </div> <div class="flex items-center space-x-4"> <div class="relative"> <a href="/" target="_blank" class="flex items-center text-gray-700 hover:text-red-600"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path> </svg> <span class="text-sm">Ver Sitio</span> </a> </div> </div> </div> </header> <!-- Page Content --> <main class="flex-1 overflow-auto bg-gray-100 p-4">  <div class="mb-6"> <h1 class="text-2xl font-bold text-gray-900">Editar Producto</h1> <p class="text-gray-600"> Estás editando el producto PMEF211 (ID: 17) </p> </div> <div class="bg-white shadow rounded-lg p-6"> <form id="productForm"> <input type="hidden" id="productId" value="17"> <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"> <div> <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label> <input type="text" id="productName" value="PMEF211" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" required> </div> <div> <label for="productCategory" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label> <select id="productCategory" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" required> <option value="">Seleccionar categoría</option> <option value="Neveras">Neveras</option><option value="Congeladores">Congeladores</option><option value="Exhibidores" selected>Exhibidores</option><option value="Heladeros">Heladeros</option><option value="Estufas">Estufas</option><option value="Lavadoras">Lavadoras</option> <option value="nueva">+ Agregar nueva categoría</option> </select> </div> <div> <label for="productPrice" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)</label> <input type="number" id="productPrice" value="699" min="0" step="0.01" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" required> </div> <div> <label for="productStock" class="block text-sm font-medium text-gray-700 mb-1">Stock</label> <input type="number" id="productStock" value="5" min="0" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" required> </div> </div> <div class="mb-6"> <label for="productShortDesc" class="block text-sm font-medium text-gray-700 mb-1">Descripción Corta</label> <input type="text" id="productShortDesc" value="Exhibidor, 8 Pie, Frost" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" maxlength="100"> <p class="mt-1 text-xs text-gray-500">Descripción breve que aparecerá en las tarjetas de producto (máx. 100 caracteres)</p> </div> <div class="mb-6"> <label for="productDescription" class="block text-sm font-medium text-gray-700 mb-1">Descripción Completa</label> <textarea id="productDescription" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">Exhibidor vertical de 8 pies cúbicos con sistema Frost, ideal para bebidas y alimentos refrigerados.</textarea> </div> <div class="mb-6"> <label for="productImage" class="block text-sm font-medium text-gray-700 mb-1">URL de la Imagen</label> <input type="text" id="productImage" value="/images/exhibidor.jpg" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="https://ejemplo.com/imagen.jpg"> </div> <div class="mb-6"> <label class="block text-sm font-medium text-gray-700 mb-1">Características</label> <div id="featuresContainer" class="space-y-2"> <div class="flex items-center space-x-2"> <input type="text" name="features[]" value="8 Pie" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path> </svg> </button> </div><div class="flex items-center space-x-2"> <input type="text" name="features[]" value="Frost" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path> </svg> </button> </div><div class="flex items-center space-x-2"> <input type="text" name="features[]" value="Vertical" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path> </svg> </button> </div><div class="flex items-center space-x-2"> <input type="text" name="features[]" value="Puerta de vidrio" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"> <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800"> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path> </svg> </button> </div> </div> <button type="button" id="addFeature" class="mt-2 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"> <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path> </svg>
+Añadir Característica
+</button> </div> <div class="flex justify-end space-x-3"> <a href="/admin/inventory" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+Cancelar
+</a> <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+Guardar Producto
+</button> </div> </form> </div>  </main> </div> </div> <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Verificar autenticación
+                const isAuthenticated = localStorage.getItem('adminAuthenticated') === 'true';
+                
+                if (!isAuthenticated && !window.location.pathname.includes('/admin/login')) {
+                    window.location.href = '/admin/login';
+                }
+                
+                // Configurar cierre de sesión
+                const logoutButton = document.getElementById('logoutButton');
+                logoutButton?.addEventListener('click', () => {
+                    localStorage.removeItem('adminAuthenticated');
+                    localStorage.removeItem('adminLastLogin');
+                    window.location.href = '/admin/login';
+                });
+            });
+        </script> </body> </html> <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const productForm = document.getElementById('productForm');
+    const productId = document.getElementById('productId');
+    const addFeatureBtn = document.getElementById('addFeature');
+    const featuresContainer = document.getElementById('featuresContainer');
+    const categorySelect = document.getElementById('productCategory');
+    
+    // Añadir evento para agregar nueva característica
+    addFeatureBtn.addEventListener('click', () => {
+      const featureDiv = document.createElement('div');
+      featureDiv.className = 'flex items-center space-x-2';
+      featureDiv.innerHTML = `
+        <input 
+          type="text" 
+          name="features[]" 
+          class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+          placeholder="Ingresa una característica"
+        >
+        <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      `;
+      featuresContainer.appendChild(featureDiv);
+      
+      // Añadir evento para eliminar esta característica
+      const removeBtn = featureDiv.querySelector('.remove-feature');
+      removeBtn.addEventListener('click', () => {
+        featureDiv.remove();
+      });
+    });
+    
+    // Añadir eventos para eliminar características existentes
+    document.querySelectorAll('.remove-feature').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.target.closest('div').remove();
+      });
+    });
+    
+    // Nueva categoría
+    categorySelect.addEventListener('change', (e) => {
+      if (e.target.value === 'nueva') {
+        const newCategory = prompt('Ingresa el nombre de la nueva categoría:');
+        if (newCategory && newCategory.trim()) {
+          // Crear nueva opción
+          const option = document.createElement('option');
+          option.value = newCategory.trim();
+          option.textContent = newCategory.trim();
+          
+          // Insertar antes de "Agregar nueva"
+          categorySelect.insertBefore(option, categorySelect.lastElementChild);
+          
+          // Seleccionar la nueva categoría
+          categorySelect.value = newCategory.trim();
+        } else {
+          // Si cancela, volver a selección previa
+          categorySelect.selectedIndex = 0;
+        }
+      }
+    });
+    
+    // Envío del formulario
+    productForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Obtener los valores del formulario
+      const id = productId.value || Math.floor(Math.random() * 10000).toString();
+      const name = document.getElementById('productName').value;
+      const category = document.getElementById('productCategory').value;
+      const price = parseFloat(document.getElementById('productPrice').value);
+      const stock = parseInt(document.getElementById('productStock').value);
+      const shortDesc = document.getElementById('productShortDesc').value;
+      const description = document.getElementById('productDescription').value;
+      const imageUrl = document.getElementById('productImage').value;
+      
+      // Obtener características
+      const features = Array.from(document.querySelectorAll('input[name="features[]"]'))
+        .map(input => input.value)
+        .filter(value => value.trim() !== '');
+      
+      // Crear objeto producto
+      const product = {
+        id,
+        name,
+        category,
+        price,
+        stock,
+        shortDesc,
+        description,
+        imageUrl,
+        features
+      };
+      
+      // Obtener productos existentes o inicializar array
+      let products = [];
+      const storedProducts = localStorage.getItem('products');
+      if (storedProducts) {
+        products = JSON.parse(storedProducts);
+      }
+      
+      // Si es un producto existente, actualizar
+      if (productId.value) {
+        const index = products.findIndex(p => p.id === productId.value);
+        if (index !== -1) {
+          products[index] = product;
+        } else {
+          products.push(product);
+        }
+      } else {
+        // Si es nuevo, agregar
+        products.push(product);
+      }
+      
+      // Guardar en localStorage
+      localStorage.setItem('products', JSON.stringify(products));
+      
+      // Mostrar mensaje y redirigir
+      alert('Producto guardado con éxito');
+      window.location.href = '/admin/inventory';
+    });
+  });
+</script>

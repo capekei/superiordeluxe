@@ -1,0 +1,115 @@
+---
+import type { Product } from '../../types/product';
+
+interface Props {
+  products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Producto
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Categoría
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Precio
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Estado
+        </th>
+        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      {products.map(product => (
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10">
+                <img class="h-10 w-10 rounded-full object-cover" src={product.imageUrl || '/images/placeholder.jpg'} alt={product.name} />
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-gray-900">{product.name}</div>
+                <div class="text-sm text-gray-500">{product.shortDesc?.substring(0, 30)}...</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm text-gray-900">{product.category}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="text-sm text-gray-900">${product.price}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            {product.badge ? (
+              <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                product.badge === 'Nuevo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              }`}>
+                {product.badge}
+              </span>
+            ) : (
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                Regular
+              </span>
+            )}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <button 
+              class="text-red-600 hover:text-red-900 mr-3 edit-product-btn" 
+              data-product-id={product.id}
+            >
+              Editar
+            </button>
+            <button 
+              class="text-red-600 hover:text-red-900 delete-product-btn" 
+              data-product-id={product.id}
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Edit product buttons
+    const editButtons = document.querySelectorAll('.edit-product-btn');
+    editButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const productId = button.getAttribute('data-product-id');
+        // Dispatch custom event for product edit
+        const event = new CustomEvent('edit-product', { 
+          detail: { productId } 
+        });
+        document.dispatchEvent(event);
+      });
+    });
+    
+    // Delete product buttons
+    const deleteButtons = document.querySelectorAll('.delete-product-btn');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const productId = button.getAttribute('data-product-id');
+        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+          // Dispatch custom event for product deletion
+          const event = new CustomEvent('delete-product', { 
+            detail: { productId } 
+          });
+          document.dispatchEvent(event);
+        }
+      });
+    });
+  });
+</script>

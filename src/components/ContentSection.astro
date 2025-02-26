@@ -1,0 +1,83 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  bgColor?: string;
+  textColor?: string;
+  paddingY?: 'small' | 'medium' | 'large';
+  containerWidth?: 'narrow' | 'standard' | 'wide';
+  id?: string;
+  className?: string;
+}
+
+const {
+  title,
+  subtitle,
+  bgColor = 'transparent',
+  textColor = 'inherit',
+  paddingY = 'medium',
+  containerWidth = 'standard',
+  id,
+  className = ''
+} = Astro.props;
+
+// Mapeo de padding vertical
+const paddingClasses = {
+  small: 'py-8',
+  medium: 'py-16',
+  large: 'py-24'
+};
+
+// Mapeo de anchos de contenedor
+const containerClasses = {
+  narrow: 'max-w-3xl',
+  standard: 'max-w-6xl',
+  wide: 'max-w-7xl'
+};
+
+// Clases finales
+const sectionClass = `w-full ${paddingClasses[paddingY]} ${className}`;
+const containerClass = `container mx-auto px-4 ${containerClasses[containerWidth]}`;
+---
+
+<section 
+  id={id} 
+  class={sectionClass}
+  style={`background-color: ${bgColor}; color: ${textColor};`}
+>
+  <div class={containerClass}>
+    {title && (
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+        {subtitle && <p class="text-xl opacity-80 max-w-3xl mx-auto">{subtitle}</p>}
+      </div>
+    )}
+    
+    <div class="content">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estilos específicos para este componente */
+  .content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  
+  .content :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .content :global(ul), .content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  .content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+</style> 

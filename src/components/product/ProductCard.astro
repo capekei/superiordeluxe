@@ -1,0 +1,197 @@
+---
+import type { Product } from '../../lib/inventory';
+
+interface Props {
+  product: Product;
+  featured?: boolean;
+  index?: number;
+}
+
+const { product, featured = false, index = 0 } = Astro.props;
+---
+
+<motion
+  client:load
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ 
+    duration: 0.5, 
+    delay: index * 0.1,
+    ease: [0.21, 0.45, 0.15, 1.00]
+  }}
+  whileHover={{ 
+    rotateY: 5,
+    rotateX: -2,
+    z: 10,
+    transition: { duration: 0.3, ease: "easeOut" }
+  }}
+  className={`
+    product-card
+    bg-white border border-secondary/30 rounded-2xl p-6
+    transition-all duration-500
+    hover:border-accent hover:shadow-xl hover:shadow-accent/10
+    ${featured ? 'featured scale-105' : ''}
+  `}
+>
+  <div class="
+    aspect-[4/3] rounded-xl overflow-hidden mb-6
+    transform transition-all duration-500
+    bg-secondary/10 relative
+  ">
+    {product.imageUrl ? (
+      <img 
+        src={product.imageUrl} 
+        alt={product.name}
+        class="
+          w-full h-full object-cover
+          transform transition-transform duration-700
+          hover:scale-110
+        "
+        loading="lazy"
+      />
+    ) : (
+      <div class="product-image-placeholder">
+        <span>{product.category}</span>
+      </div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+  </div>
+  
+  {product.badge && (
+    <div class="badge-container absolute top-4 right-4">
+      <span class="
+        badge
+        px-3 py-1.5
+        bg-accent text-white text-sm font-bold
+        rounded-full shadow-lg shadow-accent/20
+      ">
+        {product.badge}
+      </span>
+    </div>
+  )}
+
+  <div class="space-y-4">
+    <div>
+      <h3 class="text-xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
+        {product.name}
+      </h3>
+      <p class="mt-2 text-text/70 text-sm line-clamp-2 leading-relaxed">
+        {product.shortDesc || product.description}
+      </p>
+    </div>
+
+    <div class="flex items-center justify-between pt-2">
+      {product.price && (
+        <div class="flex flex-col">
+          <span class="text-xs text-text/50 uppercase">Precio</span>
+          <span class="text-lg font-bold text-primary">
+            ${product.price.toLocaleString()}
+          </span>
+        </div>
+      )}
+      {product.keyFeature && (
+        <span class="
+          feature-tag
+          px-3 py-1.5 bg-secondary/30 text-primary/90
+          text-sm font-medium rounded-full
+          transform transition-all duration-300
+          hover:bg-accent/10 hover:text-accent
+        ">
+          {product.keyFeature}
+        </span>
+      )}
+    </div>
+
+    {product.features && product.features.length > 0 && (
+      <div class="flex flex-wrap gap-2 pt-2">
+        {product.features.map(feature => (
+          <span class="
+            px-2 py-1 bg-secondary/20 text-text/70
+            text-xs font-medium rounded-md
+            transform transition-colors duration-300
+            hover:bg-accent/5 hover:text-accent
+          ">
+            {feature}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</motion>
+
+<style>
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .badge {
+    animation: bounce-subtle 2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .product-image-placeholder {
+    @apply w-full h-full flex items-center justify-center
+           bg-secondary/20 text-text/50 font-medium;
+  }
+
+  .product-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    position: relative;
+    will-change: transform;
+    position: relative;
+  }
+
+  .featured::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+    padding: 3px;
+    background: linear-gradient(45deg, transparent 50%, var(--color-accent) 50%, transparent);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    animation: rotate-gradient 4s linear infinite;
+  }
+
+  @keyframes rotate-gradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 200% 200%;
+    }
+  }
+
+  @keyframes pulse-highlight {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(212, 160, 23, 0);
+    }
+    50% {
+      box-shadow: 0 0 10px 2px rgba(212, 160, 23, 0.3);
+    }
+  }
+
+  .featured {
+    animation: pulse-highlight 3s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .badge {
+      animation: none;
+    }
+    .featured::before,
+    .featured {
+      animation: none;
+    }
+  }
+</style>

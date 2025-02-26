@@ -1,0 +1,267 @@
+---
+import { getProducts } from '../../lib/productStorage.js';
+import MainLayout from '../../layouts/MainLayout.astro';
+import AddToCartButton from '../../components/AddToCartButton.astro';
+
+// Obtener todos los productos
+const products = getProducts();
+
+// Extraer categorías únicas
+const categories = [...new Set(products.map(p => p.category))];
+
+// Meta tags y título
+const pageTitle = "Productos | Superior Deluxe";
+const description = "Explora nuestra selección de productos de alta calidad. Filtra por categoría, características y precio para encontrar exactamente lo que necesitas.";
+---
+
+<MainLayout title={pageTitle} description={description}>
+  <!-- Aquí recreamos exactamente lo que vemos en la imagen -->
+  <main>
+    <!-- Contenedor con margen fijo en lugar de padding para evitar superposición -->
+    <div class="container mx-auto px-4 mt-32">
+      <h1 class="text-4xl font-bold mb-2">Nuestros Productos</h1>
+      <p class="text-gray-600 mb-8">Mostrando {products.length} productos</p>
+      
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Sidebar de filtros (similar al formato de la imagen) -->
+        <aside class="md:w-1/4">
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h2 class="text-xl font-semibold mb-4">Filtros</h2>
+            
+            <!-- Categoría -->
+            <div class="mb-6">
+              <h3 class="font-medium mb-3">Categoría</h3>
+              <div class="space-y-2">
+                <label class="flex items-center">
+                  <input type="radio" name="category" value="all" checked class="form-radio text-accent mr-2">
+                  <span>Todas las categorías</span>
+                </label>
+                {categories.map(category => (
+                  <label class="flex items-center">
+                    <input type="radio" name="category" value={category.toLowerCase()} class="form-radio text-accent mr-2">
+                    <span>{category}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            
+            <!-- Rango de precio -->
+            <div class="mb-6">
+              <h3 class="font-medium mb-3">Precio</h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="text-sm text-gray-600 block mb-1">Mínimo</label>
+                  <input type="number" id="min-price" min="0" placeholder="0" class="w-full border rounded p-2">
+                </div>
+                <div>
+                  <label class="text-sm text-gray-600 block mb-1">Máximo</label>
+                  <input type="number" id="max-price" placeholder="99999" class="w-full border rounded p-2">
+                </div>
+              </div>
+            </div>
+            
+            <button id="filter-button" class="w-full bg-accent hover:bg-accent-dark text-white font-medium py-2 px-4 rounded transition-colors">
+              Aplicar filtros
+            </button>
+            
+            <button id="reset-button" class="w-full mt-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded transition-colors">
+              Resetear filtros
+            </button>
+          </div>
+        </aside>
+        
+        <!-- Grid de productos (similar al formato de la imagen) -->
+        <div class="md:w-3/4">
+          <div class="flex justify-end mb-6">
+            <div class="flex items-center">
+              <span class="mr-2 text-sm text-gray-600">Ordenar por:</span>
+              <select id="sort-select" class="border rounded p-2">
+                <option value="destacados">Destacados</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+                <option value="nombre-asc">Nombre: A-Z</option>
+                <option value="nombre-desc">Nombre: Z-A</option>
+              </select>
+            </div>
+          </div>
+          
+          <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <div 
+                class="product-card bg-white shadow-sm rounded-lg overflow-hidden"
+                data-id={product.id}
+                data-category={product.category.toLowerCase()}
+                data-price={product.price || 0}
+              >
+                <div class="relative">
+                  <a href={`/producto/${product.id}`} class="block">
+                    <div class="aspect-square bg-gray-50 relative">
+                      {product.imageUrl ? (
+                        <img 
+                          src={product.imageUrl} 
+                          alt={product.name}
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div class="p-4">
+                      <div class="text-xs text-gray-500 mb-1">{product.category}</div>
+                      <h3 class="font-medium text-gray-900 mb-1">{product.name}</h3>
+                      
+                      <div class="flex items-center justify-between">
+                        {product.price ? (
+                          <div class="text-lg font-bold text-accent">
+                            ${product.price.toLocaleString('es-DO')}
+                          </div>
+                        ) : (
+                          <div class="text-sm text-gray-500 italic">
+                            Precio a consultar
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </a>
+                  
+                  <!-- Botón para añadir al carrito usando el componente existente --> 
+                  <div class="absolute bottom-4 right-4">
+                    <AddToCartButton 
+                      product={product} 
+                      buttonStyle="primary"
+                      size="sm"
+                      showText={false}
+                    />
+                  </div>
+                </div>
+                
+                <!-- Datos del producto para el carrito (oculto) -->
+                <div id={`product-container-${product.id}`} data-product-json={JSON.stringify(product)} class="hidden"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</MainLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const productCards = document.querySelectorAll('.product-card');
+    const categoryRadios = document.querySelectorAll('input[name="category"]');
+    const minPriceInput = document.getElementById('min-price');
+    const maxPriceInput = document.getElementById('max-price');
+    const filterButton = document.getElementById('filter-button');
+    const resetButton = document.getElementById('reset-button');
+    const sortSelect = document.getElementById('sort-select');
+    
+    // Función para aplicar filtros
+    function applyFilters() {
+      // Obtener valores de los filtros
+      const selectedCategory = document.querySelector('input[name="category"]:checked').value;
+      const minPrice = minPriceInput.value ? parseFloat(minPriceInput.value) : 0;
+      const maxPrice = maxPriceInput.value ? parseFloat(maxPriceInput.value) : Infinity;
+      
+      // Filtrar productos
+      productCards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const cardPrice = parseFloat(card.dataset.price);
+        
+        const categoryMatch = selectedCategory === 'all' || cardCategory === selectedCategory;
+        const priceMatch = (cardPrice >= minPrice && cardPrice <= maxPrice) || isNaN(cardPrice);
+        
+        if (categoryMatch && priceMatch) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      // Actualizar contador
+      const visibleProducts = document.querySelectorAll('.product-card:not(.hidden)').length;
+      document.querySelector('p.text-gray-600').textContent = `Mostrando ${visibleProducts} productos`;
+    }
+    
+    // Función para ordenar productos
+    function sortProducts() {
+      const sortValue = sortSelect.value;
+      const productsGrid = document.getElementById('products-grid');
+      const products = Array.from(productCards);
+      
+      products.sort((a, b) => {
+        if (sortValue === 'precio-asc') {
+          return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+        } else if (sortValue === 'precio-desc') {
+          return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+        } else if (sortValue === 'nombre-asc') {
+          return a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent);
+        } else if (sortValue === 'nombre-desc') {
+          return b.querySelector('h3').textContent.localeCompare(a.querySelector('h3').textContent);
+        }
+        return 0; // Destacados (orden original)
+      });
+      
+      // Reordenar en el DOM
+      products.forEach(product => {
+        productsGrid.appendChild(product);
+      });
+    }
+    
+    // Event listeners
+    filterButton.addEventListener('click', () => {
+      applyFilters();
+      sortProducts();
+    });
+    
+    resetButton.addEventListener('click', () => {
+      // Resetear filtros
+      document.querySelector('input[value="all"]').checked = true;
+      minPriceInput.value = '';
+      maxPriceInput.value = '';
+      sortSelect.value = 'destacados';
+      
+      // Mostrar todos los productos
+      productCards.forEach(card => {
+        card.classList.remove('hidden');
+      });
+      
+      // Actualizar contador
+      document.querySelector('p.text-gray-600').textContent = `Mostrando ${productCards.length} productos`;
+    });
+    
+    sortSelect.addEventListener('change', sortProducts);
+  });
+</script>
+
+<style>
+  /* Estilos adicionales */
+  .form-radio {
+    @apply rounded-full;
+  }
+  
+  .form-radio:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='4'/%3e%3c/svg%3e");
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Transition para las tarjetas de producto */
+  .product-card {
+    transition: all 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+</style>

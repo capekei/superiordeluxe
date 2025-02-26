@@ -1,62 +1,320 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import PublicHeader from '../components/PublicHeader.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { motion } from 'framer-motion';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={`Sobre Nosotros - ${SITE_TITLE}`} description="Conoce más sobre Superior Deluxe, nuestra historia, misión y valores." />
+	</head>
+	<body class="bg-gray-50 min-h-screen flex flex-col">
+		<PublicHeader />
+		
+		<main class="flex-grow">
+			<!-- Hero Section -->
+			<section class="relative py-20 md:py-32 overflow-hidden">
+				<div class="absolute inset-0 z-0">
+					<img 
+						src="https://images.unsplash.com/photo-1556911220-bda9f7f7597b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+						alt="Fábrica de electrodomésticos" 
+						class="w-full h-full object-cover opacity-20"
+					/>
+					<div class="absolute inset-0 bg-gradient-to-r from-primary to-primary/80"></div>
+				</div>
+				
+				<div class="container mx-auto px-5 relative z-10">
+					<div class="max-w-3xl mx-auto text-center text-white">
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Nuestra Historia</h1>
+							<p class="text-xl text-white/90 mb-8">
+								Innovando en electrodomésticos de alta gama desde 1995
+							</p>
+						</motion>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Historia y Misión -->
+			<section class="py-16 md:py-24">
+				<div class="container mx-auto px-5">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+						<motion
+							client:load
+							initial={{ opacity: 0, x: -30 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-8 rounded-xl relative overflow-hidden">
+								<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-accent/5 z-0"></div>
+								<div class="relative z-10">
+									<h2 class="text-3xl font-bold text-gray-800 mb-6 relative inline-block">
+										Nuestra Historia
+										<span class="absolute bottom-0 left-0 w-1/2 h-0.5 bg-accent"></span>
+									</h2>
+									<p class="text-gray-600 mb-4">
+										Superior Deluxe nació en 1995 con una visión clara: revolucionar la industria de electrodomésticos combinando tecnología de vanguardia con diseño elegante y funcional.
+									</p>
+									<p class="text-gray-600 mb-4">
+										Lo que comenzó como un pequeño taller en las afueras de la ciudad, rápidamente se convirtió en una empresa reconocida por la calidad excepcional de sus productos y su compromiso con la innovación.
+									</p>
+									<p class="text-gray-600">
+										Hoy, tres décadas después, nos hemos consolidado como líderes en el mercado de electrodomésticos premium, siempre a la vanguardia de las tendencias y anticipándonos a las necesidades de nuestros clientes.
+									</p>
+								</div>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, scale: 0.95 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<img 
+								src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+								alt="Equipo de Superior Deluxe" 
+								class="rounded-xl shadow-lg w-full h-auto object-cover aspect-video"
+							/>
+						</motion>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Misión, Visión y Valores -->
+			<section class="py-16 md:py-24 bg-gray-100">
+				<div class="container mx-auto px-5">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Misión, Visión y Valores</h2>
+						<p class="text-gray-600 max-w-2xl mx-auto">
+							Nuestros principios fundamentales guían cada decisión que tomamos y cada producto que creamos.
+						</p>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-8 rounded-xl h-full">
+								<div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mb-6 text-accent">
+									<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold text-gray-800 mb-4">Nuestra Misión</h3>
+								<p class="text-gray-600">
+									Crear electrodomésticos excepcionales que mejoren la calidad de vida de nuestros clientes, combinando innovación tecnológica, eficiencia energética y diseño elegante.
+								</p>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-8 rounded-xl h-full">
+								<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary">
+									<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold text-gray-800 mb-4">Nuestra Visión</h3>
+								<p class="text-gray-600">
+									Ser reconocidos globalmente como la marca líder en electrodomésticos premium, estableciendo nuevos estándares de calidad, sostenibilidad e innovación en la industria.
+								</p>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-8 rounded-xl h-full">
+								<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6 text-green-600">
+									<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+									</svg>
+								</div>
+								<h3 class="text-xl font-bold text-gray-800 mb-4">Nuestros Valores</h3>
+								<ul class="text-gray-600 space-y-2">
+									<li class="flex items-start">
+										<span class="text-accent mr-2">•</span>
+										<span>Excelencia en cada detalle</span>
+									</li>
+									<li class="flex items-start">
+										<span class="text-accent mr-2">•</span>
+										<span>Innovación constante</span>
+									</li>
+									<li class="flex items-start">
+										<span class="text-accent mr-2">•</span>
+										<span>Compromiso con la sostenibilidad</span>
+									</li>
+									<li class="flex items-start">
+										<span class="text-accent mr-2">•</span>
+										<span>Servicio al cliente excepcional</span>
+									</li>
+									<li class="flex items-start">
+										<span class="text-accent mr-2">•</span>
+										<span>Integridad en todas nuestras acciones</span>
+									</li>
+								</ul>
+							</div>
+						</motion>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Equipo -->
+			<section class="py-16 md:py-24">
+				<div class="container mx-auto px-5">
+					<div class="text-center mb-16">
+						<h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nuestro Equipo</h2>
+						<p class="text-gray-600 max-w-2xl mx-auto">
+							Detrás de cada producto Superior Deluxe hay un equipo de profesionales apasionados y comprometidos con la excelencia.
+						</p>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-6 rounded-xl text-center">
+								<img 
+									src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+									alt="Carlos Rodríguez" 
+									class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+								/>
+								<h3 class="text-xl font-bold text-gray-800 mb-1">Carlos Rodríguez</h3>
+								<p class="text-accent mb-3">CEO & Fundador</p>
+								<p class="text-gray-600 text-sm">
+									Con más de 25 años de experiencia en la industria, Carlos ha liderado la transformación de Superior Deluxe en una marca de referencia.
+								</p>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-6 rounded-xl text-center">
+								<img 
+									src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" 
+									alt="Ana Martínez" 
+									class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+								/>
+								<h3 class="text-xl font-bold text-gray-800 mb-1">Ana Martínez</h3>
+								<p class="text-accent mb-3">Directora de Innovación</p>
+								<p class="text-gray-600 text-sm">
+									Ingeniera de formación, Ana lidera nuestro departamento de I+D, impulsando las tecnologías que definen nuestros productos.
+								</p>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-6 rounded-xl text-center">
+								<img 
+									src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+									alt="Miguel Sánchez" 
+									class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+								/>
+								<h3 class="text-xl font-bold text-gray-800 mb-1">Miguel Sánchez</h3>
+								<p class="text-accent mb-3">Director de Diseño</p>
+								<p class="text-gray-600 text-sm">
+									Con un ojo para la estética y la funcionalidad, Miguel asegura que cada producto sea tan hermoso como eficiente.
+								</p>
+							</div>
+						</motion>
+						
+						<motion
+							client:load
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+						>
+							<div class="glass-card p-6 rounded-xl text-center">
+								<img 
+									src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=922&q=80" 
+									alt="Laura Gómez" 
+									class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+								/>
+								<h3 class="text-xl font-bold text-gray-800 mb-1">Laura Gómez</h3>
+								<p class="text-accent mb-3">Directora de Sostenibilidad</p>
+								<p class="text-gray-600 text-sm">
+									Comprometida con el medio ambiente, Laura trabaja para reducir nuestra huella ecológica y desarrollar productos más sostenibles.
+								</p>
+							</div>
+						</motion>
+					</div>
+				</div>
+			</section>
+			
+			<!-- CTA -->
+			<section class="py-16 md:py-24 bg-primary text-white">
+				<div class="container mx-auto px-5 text-center">
+					<h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para descubrir la diferencia Superior Deluxe?</h2>
+					<p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+						Explora nuestra colección de electrodomésticos premium y encuentra el producto perfecto para tu hogar o negocio.
+					</p>
+					<a 
+						href="/catalogo" 
+						class="btn inline-block px-8 py-4 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-all hover-scale"
+					>
+						Ver Catálogo
+					</a>
+				</div>
+			</section>
+		</main>
+		
+		<Footer />
+	</body>
+</html>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
-
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
-
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
-
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+<style>
+	.glass-card {
+		background: rgba(255, 255, 255, 0.8);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		box-shadow: var(--shadow-sm);
+	}
+	
+	.hover-scale {
+		transition: transform var(--transition-fast);
+	}
+	
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+	
+	@media (prefers-reduced-motion: reduce) {
+		.hover-scale:hover {
+			transform: none;
+		}
+	}
+</style>

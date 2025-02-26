@@ -1,0 +1,60 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import PublicHeader from '../components/PublicHeader.astro';
+import Footer from '../components/Footer.astro';
+import CartNotification from '../components/CartNotification.jsx';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+  fullWidth?: boolean;
+}
+
+const { 
+  title = SITE_TITLE, 
+  description = SITE_DESCRIPTION,
+  bodyClass = "bg-gray-50 min-h-screen flex flex-col",
+  fullWidth = false
+} = Astro.props;
+
+// Clase para el contenedor principal, dependiendo de si queremos ancho completo o no
+const mainClass = fullWidth 
+  ? "flex-grow w-full max-w-none px-0" 
+  : "flex-grow w-full";
+
+---
+
+<!doctype html>
+<html lang="es" class="w-full">
+  <head>
+    <BaseHead title={title} description={description} />
+    <link rel="stylesheet" href="/styles/animations.css" />
+  </head>
+  <body class={`w-full overflow-x-hidden ${bodyClass}`}>
+    <PublicHeader />
+    
+    <main class={mainClass}>
+      <slot />
+    </main>
+    
+    <Footer />
+    
+    <!-- Componente de notificación del carrito -->
+    <CartNotification client:only="react" />
+    
+    <!-- Script para inicializar el carrito -->
+    <script>
+      // Importar el store del carrito para asegurar que se inicialice correctamente
+      import { cartStore, getCartItemsCount } from '../stores/cartStore.js';
+      
+      // Inicializar el carrito si es necesario
+      document.addEventListener('DOMContentLoaded', () => {
+        // Forzar una actualización del contador al cargar la página
+        const count = getCartItemsCount();
+        console.log('Carrito inicializado con', count, 'productos');
+      });
+    </script>
+  </body>
+</html> 

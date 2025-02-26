@@ -1,0 +1,309 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { products } from '../../../data/products.json';
+
+// Generate routes for all products plus a "new" route
+export function getStaticPaths() {
+  // Get all product IDs
+  const productPaths = products.map(product => ({
+    params: { id: product.id }
+  }));
+  
+  // Add a path for creating new products
+  productPaths.push({ params: { id: 'new' } });
+  
+  return productPaths;
+}
+
+// Obtener el ID del producto de los parámetros
+const { id } = Astro.params;
+
+// Encontrar el producto
+const product = products.find(p => p.id === id) || {
+  id: '',
+  name: '',
+  description: '',
+  shortDesc: '',
+  category: '',
+  price: 0,
+  stock: 0,
+  imageUrl: '',
+  features: []
+};
+
+// Obtener todas las categorías únicas
+const categories = [...new Set(products.map(product => product.category))];
+---
+
+<AdminLayout title={id ? "Editar Producto" : "Nuevo Producto"}>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">{id ? "Editar Producto" : "Nuevo Producto"}</h1>
+    <p class="text-gray-600">
+      {id 
+        ? `Estás editando el producto ${product.name} (ID: ${id})` 
+        : "Completa el formulario para crear un nuevo producto"}
+    </p>
+  </div>
+  
+  <div class="bg-white shadow rounded-lg p-6">
+    <form id="productForm">
+      <input type="hidden" id="productId" value={id || ''}>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label for="productName" class="block text-sm font-medium text-gray-700 mb-1">Nombre del Producto</label>
+          <input 
+            type="text" 
+            id="productName" 
+            value={product.name} 
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            required
+          >
+        </div>
+        
+        <div>
+          <label for="productCategory" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+          <select 
+            id="productCategory" 
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            required
+          >
+            <option value="">Seleccionar categoría</option>
+            {categories.map(category => (
+              <option value={category} selected={category === product.category}>{category}</option>
+            ))}
+            <option value="nueva">+ Agregar nueva categoría</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="productPrice" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)</label>
+          <input 
+            type="number" 
+            id="productPrice" 
+            value={product.price} 
+            min="0" 
+            step="0.01" 
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            required
+          >
+        </div>
+        
+        <div>
+          <label for="productStock" class="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+          <input 
+            type="number" 
+            id="productStock" 
+            value={product.stock || 0} 
+            min="0" 
+            class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+            required
+          >
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <label for="productShortDesc" class="block text-sm font-medium text-gray-700 mb-1">Descripción Corta</label>
+        <input 
+          type="text" 
+          id="productShortDesc" 
+          value={product.shortDesc || ''} 
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+          maxlength="100"
+        >
+        <p class="mt-1 text-xs text-gray-500">Descripción breve que aparecerá en las tarjetas de producto (máx. 100 caracteres)</p>
+      </div>
+      
+      <div class="mb-6">
+        <label for="productDescription" class="block text-sm font-medium text-gray-700 mb-1">Descripción Completa</label>
+        <textarea 
+          id="productDescription" 
+          rows="4" 
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+        >{product.description || ''}</textarea>
+      </div>
+      
+      <div class="mb-6">
+        <label for="productImage" class="block text-sm font-medium text-gray-700 mb-1">URL de la Imagen</label>
+        <input 
+          type="text" 
+          id="productImage" 
+          value={product.imageUrl || ''} 
+          class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+          placeholder="https://ejemplo.com/imagen.jpg"
+        >
+      </div>
+      
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Características</label>
+        <div id="featuresContainer" class="space-y-2">
+          {(product.features || []).map((feature, index) => (
+            <div class="flex items-center space-x-2">
+              <input 
+                type="text" 
+                name="features[]" 
+                value={feature} 
+                class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+              >
+              <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          ))}
+        </div>
+        <button 
+          type="button" 
+          id="addFeature" 
+          class="mt-2 inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+          </svg>
+          Añadir Característica
+        </button>
+      </div>
+      
+      <div class="flex justify-end space-x-3">
+        <a 
+          href="/admin/inventory" 
+          class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Cancelar
+        </a>
+        <button 
+          type="submit" 
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Guardar Producto
+        </button>
+      </div>
+    </form>
+  </div>
+</AdminLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const productForm = document.getElementById('productForm');
+    const productId = document.getElementById('productId');
+    const addFeatureBtn = document.getElementById('addFeature');
+    const featuresContainer = document.getElementById('featuresContainer');
+    const categorySelect = document.getElementById('productCategory');
+    
+    // Añadir evento para agregar nueva característica
+    addFeatureBtn.addEventListener('click', () => {
+      const featureDiv = document.createElement('div');
+      featureDiv.className = 'flex items-center space-x-2';
+      featureDiv.innerHTML = `
+        <input 
+          type="text" 
+          name="features[]" 
+          class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+          placeholder="Ingresa una característica"
+        >
+        <button type="button" class="remove-feature p-2 text-red-600 hover:text-red-800">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      `;
+      featuresContainer.appendChild(featureDiv);
+      
+      // Añadir evento para eliminar esta característica
+      const removeBtn = featureDiv.querySelector('.remove-feature');
+      removeBtn.addEventListener('click', () => {
+        featureDiv.remove();
+      });
+    });
+    
+    // Añadir eventos para eliminar características existentes
+    document.querySelectorAll('.remove-feature').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.target.closest('div').remove();
+      });
+    });
+    
+    // Nueva categoría
+    categorySelect.addEventListener('change', (e) => {
+      if (e.target.value === 'nueva') {
+        const newCategory = prompt('Ingresa el nombre de la nueva categoría:');
+        if (newCategory && newCategory.trim()) {
+          // Crear nueva opción
+          const option = document.createElement('option');
+          option.value = newCategory.trim();
+          option.textContent = newCategory.trim();
+          
+          // Insertar antes de "Agregar nueva"
+          categorySelect.insertBefore(option, categorySelect.lastElementChild);
+          
+          // Seleccionar la nueva categoría
+          categorySelect.value = newCategory.trim();
+        } else {
+          // Si cancela, volver a selección previa
+          categorySelect.selectedIndex = 0;
+        }
+      }
+    });
+    
+    // Envío del formulario
+    productForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Obtener los valores del formulario
+      const id = productId.value || Math.floor(Math.random() * 10000).toString();
+      const name = document.getElementById('productName').value;
+      const category = document.getElementById('productCategory').value;
+      const price = parseFloat(document.getElementById('productPrice').value);
+      const stock = parseInt(document.getElementById('productStock').value);
+      const shortDesc = document.getElementById('productShortDesc').value;
+      const description = document.getElementById('productDescription').value;
+      const imageUrl = document.getElementById('productImage').value;
+      
+      // Obtener características
+      const features = Array.from(document.querySelectorAll('input[name="features[]"]'))
+        .map(input => input.value)
+        .filter(value => value.trim() !== '');
+      
+      // Crear objeto producto
+      const product = {
+        id,
+        name,
+        category,
+        price,
+        stock,
+        shortDesc,
+        description,
+        imageUrl,
+        features
+      };
+      
+      // Obtener productos existentes o inicializar array
+      let products = [];
+      const storedProducts = localStorage.getItem('products');
+      if (storedProducts) {
+        products = JSON.parse(storedProducts);
+      }
+      
+      // Si es un producto existente, actualizar
+      if (productId.value) {
+        const index = products.findIndex(p => p.id === productId.value);
+        if (index !== -1) {
+          products[index] = product;
+        } else {
+          products.push(product);
+        }
+      } else {
+        // Si es nuevo, agregar
+        products.push(product);
+      }
+      
+      // Guardar en localStorage
+      localStorage.setItem('products', JSON.stringify(products));
+      
+      // Mostrar mensaje y redirigir
+      alert('Producto guardado con éxito');
+      window.location.href = '/admin/inventory';
+    });
+  });
+</script>

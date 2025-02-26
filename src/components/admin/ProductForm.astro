@@ -1,0 +1,193 @@
+---
+import { CATEGORIES } from '../../consts';
+import type { Product } from '../../types/product';
+
+interface Props {
+  product?: Product;
+  isEdit?: boolean;
+}
+
+const { product, isEdit = false } = Astro.props;
+---
+
+<div class="bg-white shadow rounded-lg p-6">
+  <h2 class="text-xl font-semibold mb-6">{isEdit ? 'Editar Producto' : 'Añadir Nuevo Producto'}</h2>
+  
+  <form id="productForm" class="space-y-6">
+    {isEdit && <input type="hidden" name="id" value={product?.id} />}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Nombre del producto -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre del producto</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          value={product?.name || ''} 
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+        />
+      </div>
+      
+      <!-- Categoría -->
+      <div>
+        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+        <select 
+          id="category" 
+          name="category" 
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+        >
+          <option value="" disabled selected={!product?.category}>Seleccionar categoría</option>
+          {CATEGORIES.map(category => (
+            <option value={category} selected={product?.category === category}>{category}</option>
+          ))}
+        </select>
+      </div>
+      
+      <!-- Precio -->
+      <div>
+        <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)</label>
+        <input 
+          type="number" 
+          id="price" 
+          name="price" 
+          value={product?.price || ''} 
+          step="0.01" 
+          min="0" 
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+        />
+      </div>
+      
+      <!-- Badge (Nuevo/Oferta) -->
+      <div>
+        <label for="badge" class="block text-sm font-medium text-gray-700 mb-1">Etiqueta</label>
+        <select 
+          id="badge" 
+          name="badge"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+        >
+          <option value="" selected={!product?.badge}>Sin etiqueta</option>
+          <option value="Nuevo" selected={product?.badge === 'Nuevo'}>Nuevo</option>
+          <option value="Oferta" selected={product?.badge === 'Oferta'}>Oferta</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- URL de la imagen -->
+    <div>
+      <label for="imageUrl" class="block text-sm font-medium text-gray-700 mb-1">URL de la imagen</label>
+      <input 
+        type="url" 
+        id="imageUrl" 
+        name="imageUrl" 
+        value={product?.imageUrl || ''} 
+        required
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+      />
+    </div>
+    
+    <!-- Descripción corta -->
+    <div>
+      <label for="shortDesc" class="block text-sm font-medium text-gray-700 mb-1">Descripción corta</label>
+      <textarea 
+        id="shortDesc" 
+        name="shortDesc" 
+        rows="2" 
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+      >{product?.shortDesc || ''}</textarea>
+    </div>
+    
+    <!-- Descripción completa -->
+    <div>
+      <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Descripción completa</label>
+      <textarea 
+        id="description" 
+        name="description" 
+        rows="4" 
+        class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500"
+      >{product?.description || ''}</textarea>
+    </div>
+    
+    <!-- Destacado -->
+    <div class="flex items-center">
+      <input 
+        type="checkbox" 
+        id="featured" 
+        name="featured" 
+        checked={product?.featured || false}
+        class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+      />
+      <label for="featured" class="ml-2 block text-sm text-gray-700">Producto destacado</label>
+    </div>
+    
+    <!-- Botones de acción -->
+    <div class="flex justify-end space-x-3">
+      <button 
+        type="button" 
+        id="cancelButton"
+        class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      >
+        Cancelar
+      </button>
+      <button 
+        type="submit"
+        class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+      >
+        {isEdit ? 'Actualizar Producto' : 'Crear Producto'}
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('productForm');
+    const cancelButton = document.getElementById('cancelButton');
+    
+    // Handle form submission
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form as HTMLFormElement);
+      const productData: Record<string, any> = {};
+      
+      // Convert FormData to object
+      formData.forEach((value, key) => {
+        if (key === 'featured') {
+          productData[key] = true;
+        } else {
+          productData[key] = value;
+        }
+      });
+      
+      // If featured checkbox is unchecked, it won't be in formData
+      if (!formData.has('featured')) {
+        productData.featured = false;
+      }
+      
+      // Convert price to number
+      if (productData.price) {
+        productData.price = parseFloat(productData.price);
+      }
+      
+      // Dispatch custom event with product data
+      const isEdit = formData.has('id');
+      const eventName = isEdit ? 'update-product' : 'create-product';
+      
+      const event = new CustomEvent(eventName, {
+        detail: { product: productData }
+      });
+      
+      document.dispatchEvent(event);
+    });
+    
+    // Handle cancel button
+    cancelButton?.addEventListener('click', () => {
+      const event = new CustomEvent('cancel-product-form');
+      document.dispatchEvent(event);
+    });
+  });
+</script> 

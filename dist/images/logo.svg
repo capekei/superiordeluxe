@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60">
+  <style>
+    .text { font-family: Arial, sans-serif; font-weight: bold; }
+    .main-text { font-size: 24px; fill: #1E2A3C; }
+    .sub-text { font-size: 12px; fill: #D42C17; }
+  </style>
+  <rect width="200" height="60" rx="8" fill="white"/>
+  <text x="20" y="30" class="text main-text">SUPERIOR DELUXE</text>
+  <text x="20" y="45" class="text sub-text">ELECTRODOMÉSTICOS</text>
+</svg> 

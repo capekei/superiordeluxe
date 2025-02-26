@@ -2,16 +2,34 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-
-import cloudflare from "@astrojs/cloudflare";
+import tailwind from "@astrojs/tailwind";
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
-  integrations: [mdx(), sitemap()],
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
+  site: "https://superiordeluxe.com",
+  output: "static", // Keep as static for Cloudflare Pages
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind(),
+    react(),
+  ],
+  // Configuración de imágenes - works with Cloudflare Pages
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp' // Will work for build-time processing
     },
-  }),
+    // Permitir imágenes remotas
+    domains: ['source.unsplash.com'],
+  },
+  // Configuración de compilación
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  // Configuración de servidor de desarrollo
+  server: {
+    port: 3000,
+    host: true,
+  },
 });

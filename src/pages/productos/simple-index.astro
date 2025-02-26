@@ -1,0 +1,285 @@
+---
+import { getProducts } from '../../lib/productStorage.js';
+import MainLayout from '../../layouts/MainLayout.astro';
+import SimpleFilterUI from '../../components/productos/SimpleFilterUI.jsx';
+import AddToCartButton from '../../components/AddToCartButton.astro';
+
+// Obtener todos los productos
+const products = getProducts();
+
+// Extraer categorías únicas
+const categories = [...new Set(products.map(p => p.category))];
+
+// Meta tags y título
+const pageTitle = "Productos | Superior Deluxe";
+const description = "Explora nuestra selección de productos de alta calidad. Filtra por categoría, características y precio para encontrar exactamente lo que necesitas.";
+---
+
+<MainLayout title={pageTitle} description={description}>
+  <!-- Añadimos pt-28 para evitar que el header tape el contenido -->
+  <main class="container mx-auto px-4 py-12 pt-28">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Barra lateral con filtros (32% en desktop, 100% en móvil) -->
+      <aside class="lg:w-1/3 lg:sticky top-28 self-start">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="border-b border-gray-100 p-4">
+            <h3 class="text-lg font-medium text-gray-900">Filtros</h3>
+          </div>
+          <SimpleFilterUI 
+            client:load 
+            categories={categories}
+          />
+        </div>
+      </aside>
+      
+      <!-- Contenido principal (68% en desktop, 100% en móvil) -->
+      <div class="lg:w-2/3">
+        <!-- Cabecera de resultados -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Nuestros Productos</h1>
+            <p class="text-gray-600 mt-1">
+              Mostrando <span id="product-count" class="font-medium">{products.length}</span> 
+              productos
+            </p>
+          </div>
+          
+          <!-- Ordenación -->
+          <div class="flex items-center gap-2">
+            <label for="product-sort" class="text-sm text-gray-600 whitespace-nowrap">
+              Ordenar por:
+            </label>
+            <select 
+              id="product-sort" 
+              class="form-select border border-gray-200 rounded py-1 px-2 text-sm"
+            >
+              <option value="featured">Destacados</option>
+              <option value="price_asc">Precio: menor a mayor</option>
+              <option value="price_desc">Precio: mayor a menor</option>
+              <option value="name_asc">Nombre: A-Z</option>
+              <option value="name_desc">Nombre: Z-A</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Mensaje de carga o sin resultados -->
+        <div 
+          id="loading-message"
+          class="hidden bg-white rounded-xl shadow-sm p-12 text-center border border-gray-100 mb-6"
+        >
+          <div class="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+          <p class="text-gray-600">Cargando productos...</p>
+        </div>
+        
+        <div 
+          id="no-results-message"
+          class="hidden bg-white rounded-xl shadow-sm p-12 text-center border border-gray-100 mb-6"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="text-xl font-medium text-gray-900 mb-2">No se encontraron productos</h3>
+          <p class="text-gray-600 mb-4">Intenta ajustar los filtros para ver más resultados.</p>
+          <button 
+            id="reset-filters-button"
+            class="px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent-dark transition-colors"
+          >
+            Resetear filtros
+          </button>
+        </div>
+        
+        <!-- Grid de productos -->
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product, index) => (
+            <div 
+              class="product-card bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100 transition-all hover:shadow-md"
+              data-id={product.id}
+              data-category={product.category.toLowerCase()}
+              data-price={product.price || 0}
+            >
+              <a href={`/producto/${product.id}`} class="block">
+                <div class="aspect-square bg-gray-50 relative overflow-hidden">
+                  {product.imageUrl ? (
+                    <img 
+                      src={product.imageUrl} 
+                      alt={product.name}
+                      class="w-full h-full object-cover transition-transform hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
+                  
+                  {product.badge && (
+                    <div class="absolute top-2 right-2 bg-accent text-white text-xs font-medium px-2 py-1 rounded">
+                      {product.badge}
+                    </div>
+                  )}
+                </div>
+                
+                <div class="p-4">
+                  <div class="text-xs text-gray-500 mb-1">{product.category}</div>
+                  <h3 class="text-lg font-medium text-gray-900 mb-1">{product.name}</h3>
+                  <p class="text-sm text-gray-600 mb-3">{product.shortDesc || product.description.substring(0, 60)}</p>
+                  
+                  <div class="flex items-center justify-between">
+                    {product.price ? (
+                      <div class="text-lg font-bold text-accent">
+                        ${product.price.toLocaleString('es-DO')}
+                      </div>
+                    ) : (
+                      <div class="text-sm text-gray-500 italic">
+                        Precio a consultar
+                      </div>
+                    )}
+                    
+                    <AddToCartButton 
+                      product={product} 
+                      buttonStyle="primary"
+                      size="sm"
+                      showText={false}
+                    />
+                  </div>
+                </div>
+              </a>
+              
+              <!-- Datos del producto para el carrito (oculto) -->
+              <div id={`product-container-${product.id}`} data-product-json={JSON.stringify(product)} class="hidden"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+</MainLayout>
+
+<script>
+  // Importar el adaptador de filtros
+  import { ProductFilterAdapter } from '../../lib/filters/ProductFilterAdapter.js';
+  
+  // Definir filterEngine en el ámbito global para que esté disponible para el componente React
+  window.filterEngine = null;
+  
+  // Inicializar cuando se carga el DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    // Obtener referencias a los elementos del DOM
+    const productsGrid = document.getElementById('products-grid');
+    const productCards = document.querySelectorAll('.product-card');
+    const productCount = document.getElementById('product-count');
+    const loadingMessage = document.getElementById('loading-message');
+    const noResultsMessage = document.getElementById('no-results-message');
+    const sortSelect = document.getElementById('product-sort');
+    const resetFiltersButton = document.getElementById('reset-filters-button');
+    
+    // Crear el adaptador de filtros con opciones simplificadas
+    const filterAdapter = new ProductFilterAdapter({
+      persistInUrl: true,
+      defaultSorting: 'featured'
+    });
+    
+    // Inicializar con los productos actuales (simplificados)
+    const products = Array.from(productCards).map(card => {
+      return {
+        id: card.dataset.id,
+        category: card.dataset.category,
+        price: parseFloat(card.dataset.price)
+      };
+    });
+    
+    // Inicializar el adaptador con los productos
+    filterAdapter.initialize({
+      items: products
+    });
+    
+    // Asignar el motor de filtros a la ventana global para que el componente React pueda acceder a él
+    window.filterEngine = filterAdapter;
+    
+    // Definir la función global para aplicar filtros
+    window.applyFilters = () => {
+      // Mostrar mensaje de carga
+      if (loadingMessage) loadingMessage.classList.remove('hidden');
+      if (noResultsMessage) noResultsMessage.classList.add('hidden');
+      
+      try {
+        // Obtener productos filtrados
+        const filteredItems = filterAdapter.applyFilters();
+        
+        // Actualizar conteo
+        if (productCount) productCount.textContent = filteredItems.length;
+        
+        // Mostrar u ocultar productos según filtro
+        productCards.forEach(card => {
+          const isVisible = filteredItems.some(item => item.id === card.dataset.id);
+          card.classList.toggle('hidden', !isVisible);
+        });
+        
+        // Actualizar mensajes
+        if (loadingMessage) loadingMessage.classList.add('hidden');
+        
+        if (filteredItems.length === 0 && noResultsMessage) {
+          noResultsMessage.classList.remove('hidden');
+        } else if (noResultsMessage) {
+          noResultsMessage.classList.add('hidden');
+        }
+      } catch (error) {
+        console.error("Error al aplicar filtros:", error);
+        // Ocultar mensaje de carga en caso de error
+        if (loadingMessage) loadingMessage.classList.add('hidden');
+      }
+    };
+    
+    // Manejar cambios en ordenación
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        filterAdapter.setFilter('sorting', sortSelect.value);
+        window.applyFilters();
+      });
+    }
+    
+    // Manejar click en reset filtros
+    if (resetFiltersButton) {
+      resetFiltersButton.addEventListener('click', () => {
+        filterAdapter.resetFilters();
+        if (typeof window.resetFilterUI === 'function') {
+          window.resetFilterUI();
+        }
+        window.applyFilters();
+        
+        // Resetear la UI de selección de orden
+        if (sortSelect) sortSelect.value = 'featured';
+      });
+    }
+    
+    // Aplicar filtros inicialmente
+    window.applyFilters();
+  });
+</script>
+
+<style>
+  /* Animaciones para las tarjetas */
+  .product-card {
+    transition: all 0.3s cubic-bezier(0.21, 0.45, 0.15, 1.00);
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Estilos para el estado de carga */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .loading {
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>

@@ -1,0 +1,428 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { products } from '../../../data/products.json';
+
+// Ordenar productos alfabéticamente por defecto
+const sortedProducts = [...products].sort((a, b) => a.name.localeCompare(b.name));
+
+// Obtener todas las categorías únicas
+const categories = [...new Set(products.map(product => product.category))];
+---
+
+<AdminLayout title="Inventario de Productos">
+  <div class="mb-6 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Gestión de Inventario</h1>
+      <p class="text-gray-600">Administra todos los productos de tu catálogo</p>
+    </div>
+    <div class="flex space-x-2">
+      <button id="bulkDeleteBtn" class="hidden items-center px-4 py-2 bg-red-100 border border-red-200 rounded-md font-semibold text-sm text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        Eliminar Seleccionados (<span id="selectedCount">0</span>)
+      </button>
+      <a href="/admin/inventory/new" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+        Añadir Producto
+      </a>
+    </div>
+  </div>
+  
+  <!-- Filtros y búsqueda -->
+  <div class="bg-white shadow rounded-lg p-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label for="searchInput" class="block text-sm font-medium text-gray-700 mb-1">Buscar productos</label>
+        <div class="relative">
+          <input type="text" id="searchInput" placeholder="Buscar por nombre o ID..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <label for="categoryFilter" class="block text-sm font-medium text-gray-700 mb-1">Filtrar por categoría</label>
+        <select id="categoryFilter" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <option value="">Todas las categorías</option>
+          {categories.map(category => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
+      </div>
+      
+      <div>
+        <label for="sortBy" class="block text-sm font-medium text-gray-700 mb-1">Ordenar por</label>
+        <select id="sortBy" class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+          <option value="name_asc">Nombre (A-Z)</option>
+          <option value="name_desc">Nombre (Z-A)</option>
+          <option value="price_asc">Precio (menor a mayor)</option>
+          <option value="price_desc">Precio (mayor a menor)</option>
+          <option value="id_asc">ID (ascendente)</option>
+          <option value="id_desc">ID (descendente)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tabla de productos -->
+  <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200" id="productsTable">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <div class="flex items-center">
+                <input
+                  id="selectAllCheckbox"
+                  type="checkbox"
+                  class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                >
+              </div>
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              ID
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Producto
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Categoría
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Precio
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Estado
+            </th>
+            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {sortedProducts.map(product => (
+            <tr class="product-row" data-category={product.category} data-name={product.name} data-id={product.id} data-price={product.price}>
+              <td class="px-4 py-4 whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  class="product-checkbox h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                  data-id={product.id}
+                >
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                #{product.id}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 bg-gray-100 rounded-md flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                    </svg>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900">{product.name}</div>
+                    <div class="text-xs text-gray-500 truncate max-w-xs">{product.description?.substring(0, 50)}...</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                  {product.category}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                ${product.price?.toLocaleString()}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {product.stock > 0 ? 'Disponible' : 'Agotado'}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href={`/admin/inventory/${product.id}`} class="text-red-600 hover:text-red-900 mr-3">
+                  Editar
+                </a>
+                <button class="delete-product text-gray-600 hover:text-gray-900" data-id={product.id}>
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Mensaje cuando no hay resultados -->
+    <div id="noResults" class="hidden px-6 py-4 text-center text-gray-500">
+      No se encontraron productos que coincidan con los criterios de búsqueda.
+    </div>
+  </div>
+  
+  <!-- Paginación -->
+  <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-4 rounded-lg shadow">
+    <div class="flex-1 flex justify-between sm:hidden">
+      <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        Anterior
+      </a>
+      <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        Siguiente
+      </a>
+    </div>
+    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm text-gray-700">
+          Mostrando <span class="font-medium">1</span> a <span class="font-medium">10</span> de <span class="font-medium">{products.length}</span> resultados
+        </p>
+      </div>
+      <div>
+        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">Anterior</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" aria-current="page" class="z-10 bg-red-50 border-red-500 text-red-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+            1
+          </a>
+          <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+            2
+          </a>
+          <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+            3
+          </a>
+          <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+            ...
+          </span>
+          <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+            {Math.ceil(products.length / 10)}
+          </a>
+          <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">Siguiente</span>
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortBy = document.getElementById('sortBy');
+    const productRows = document.querySelectorAll('.product-row');
+    const noResults = document.getElementById('noResults');
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+    const selectedCountSpan = document.getElementById('selectedCount');
+    
+    // Función para manejar la selección de productos
+    function handleProductSelection() {
+      const checkboxes = document.querySelectorAll('.product-checkbox:not(:disabled)');
+      const selectedCheckboxes = document.querySelectorAll('.product-checkbox:checked');
+      
+      // Actualizar contador y botón de eliminación masiva
+      selectedCountSpan.textContent = selectedCheckboxes.length;
+      
+      if (selectedCheckboxes.length > 0) {
+        bulkDeleteBtn.classList.remove('hidden');
+        bulkDeleteBtn.classList.add('inline-flex');
+      } else {
+        bulkDeleteBtn.classList.add('hidden');
+        bulkDeleteBtn.classList.remove('inline-flex');
+      }
+      
+      // Actualizar estado del checkbox "Seleccionar todos"
+      if (selectedCheckboxes.length === checkboxes.length && checkboxes.length > 0) {
+        selectAllCheckbox.checked = true;
+        selectAllCheckbox.indeterminate = false;
+      } else if (selectedCheckboxes.length === 0) {
+        selectAllCheckbox.checked = false;
+        selectAllCheckbox.indeterminate = false;
+      } else {
+        selectAllCheckbox.indeterminate = true;
+      }
+    }
+    
+    // Seleccionar/deseleccionar todos los productos
+    selectAllCheckbox.addEventListener('change', () => {
+      const checkboxes = document.querySelectorAll('.product-checkbox:not(:disabled)');
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+      
+      handleProductSelection();
+    });
+    
+    // Agregar listener a los checkboxes individuales
+    document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('change', handleProductSelection);
+    });
+    
+    // Botón de eliminación masiva
+    bulkDeleteBtn.addEventListener('click', () => {
+      const selectedIds = Array.from(document.querySelectorAll('.product-checkbox:checked'))
+                               .map(checkbox => checkbox.getAttribute('data-id'));
+      
+      if (selectedIds.length === 0) return;
+      
+      if (confirm(`¿Estás seguro de que deseas eliminar ${selectedIds.length} productos?`)) {
+        // Obtener productos actuales
+        const currentProducts = getProducts();
+        
+        // Filtrar productos a eliminar
+        const updatedProducts = currentProducts.filter(product => !selectedIds.includes(product.id));
+        
+        // Guardar en localStorage
+        saveProducts(updatedProducts);
+        
+        // Ocultar filas de productos eliminados
+        selectedIds.forEach(id => {
+          const row = document.querySelector(`.product-row[data-id="${id}"]`);
+          if (row) row.classList.add('hidden');
+        });
+        
+        // Restablecer selección
+        selectAllCheckbox.checked = false;
+        handleProductSelection();
+        
+        alert(`${selectedIds.length} productos eliminados con éxito.`);
+      }
+    });
+    
+    // Función para guardar productos en localStorage
+    function saveProducts(products) {
+      localStorage.setItem('products', JSON.stringify(products));
+      return products;
+    }
+    
+    // Función para obtener productos de localStorage o usar los predeterminados
+    function getProducts() {
+      const storedProducts = localStorage.getItem('products');
+      if (storedProducts) {
+        return JSON.parse(storedProducts);
+      }
+      // Si no hay productos en localStorage, guardar los productos predeterminados
+      return saveProducts(Array.from(productRows).map(row => {
+        return {
+          id: row.getAttribute('data-id'),
+          name: row.getAttribute('data-name'),
+          category: row.getAttribute('data-category'),
+          price: parseFloat(row.getAttribute('data-price'))
+        };
+      }));
+    }
+    
+    // Función para filtrar y ordenar productos
+    function filterAndSortProducts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const categoryValue = categoryFilter.value.toLowerCase();
+      const sortValue = sortBy.value;
+      
+      let visibleCount = 0;
+      
+      // Filtrar productos
+      productRows.forEach(row => {
+        const name = row.getAttribute('data-name').toLowerCase();
+        const id = row.getAttribute('data-id').toLowerCase();
+        const category = row.getAttribute('data-category').toLowerCase();
+        
+        const matchesSearch = name.includes(searchTerm) || id.includes(searchTerm);
+        const matchesCategory = categoryValue === '' || category === categoryValue;
+        
+        if (matchesSearch && matchesCategory) {
+          row.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+      
+      // Mostrar mensaje si no hay resultados
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+      
+      // Ordenar productos
+      const rows = Array.from(productRows).filter(row => !row.classList.contains('hidden'));
+      const table = document.getElementById('productsTable');
+      const tbody = table.querySelector('tbody');
+      
+      rows.sort((a, b) => {
+        switch (sortValue) {
+          case 'name_asc':
+            return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+          case 'name_desc':
+            return b.getAttribute('data-name').localeCompare(a.getAttribute('data-name'));
+          case 'price_asc':
+            return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
+          case 'price_desc':
+            return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
+          case 'id_asc':
+            return parseInt(a.getAttribute('data-id')) - parseInt(b.getAttribute('data-id'));
+          case 'id_desc':
+            return parseInt(b.getAttribute('data-id')) - parseInt(a.getAttribute('data-id'));
+          default:
+            return 0;
+        }
+      });
+      
+      // Reordenar los elementos en el DOM
+      rows.forEach(row => tbody.appendChild(row));
+    }
+    
+    // Agregar event listeners
+    searchInput.addEventListener('input', filterAndSortProducts);
+    categoryFilter.addEventListener('change', filterAndSortProducts);
+    sortBy.addEventListener('change', filterAndSortProducts);
+    
+    // Configurar botones de eliminar
+    document.querySelectorAll('.delete-product').forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Evitar problemas de event bubbling
+        const target = e.target.closest('.delete-product');
+        const id = target.getAttribute('data-id');
+        
+        if (confirm(`¿Estás seguro de que deseas eliminar el producto #${id}?`)) {
+          // Obtener productos actuales
+          const currentProducts = getProducts();
+          
+          // Eliminar el producto
+          const updatedProducts = currentProducts.filter(product => product.id !== id);
+          
+          // Guardar en localStorage
+          saveProducts(updatedProducts);
+          
+          // Ocultar la fila
+          target.closest('tr').classList.add('hidden');
+          
+          alert(`Producto #${id} eliminado con éxito.`);
+        }
+      });
+    });
+    
+    // Configurar los enlaces de edición
+    document.querySelectorAll('a[href^="/admin/inventory/"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // Solo para eventos que no son el enlace de "Añadir Producto"
+        if (!e.currentTarget.href.includes('/admin/inventory/new')) {
+          // No prevenimos la navegación, dejamos que vaya a la página de edición
+          // No es necesario hacer nada aquí, la navegación predeterminada funcionará
+        }
+      });
+    });
+  });
+</script>

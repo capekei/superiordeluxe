@@ -3,6 +3,7 @@
   "description": "Build a personal website, blog, or portfolio with Astro.",
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^7.0.0",
     "@astrojs/mdx": "4.0.3",
     "@astrojs/react": "^4.2.0",
     "@astrojs/rss": "4.0.11",
@@ -12,6 +13,8 @@
     "astro": "5.1.3",
     "framer-motion": "^12.4.7",
     "nanostores": "^0.11.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"
   },
@@ -21,10 +24,14 @@
     "check": "astro check && tsc",
     "dev": "astro dev",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "deploy:preview": "wrangler pages dev ./dist",
+    "deploy:staging": "wrangler pages deploy ./dist --branch=staging",
+    "deploy:production": "wrangler pages deploy ./dist --branch=main"
   },
   "type": "module",
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250224.0"
+    "@cloudflare/workers-types": "^4.20250224.0",
+    "wrangler": "^3.32.0"
   }
 }

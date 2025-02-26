@@ -8,7 +8,7 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   site: "https://superiordeluxe.com",
-  output: "static", // Keep as static for Cloudflare Pages
+  output: "static", // Cambiado a static para simplificar el despliegue
   integrations: [
     mdx(),
     sitemap(),
